@@ -67,6 +67,19 @@ class CafeKioskTest {
     }
 
     @Test
+    void createOrder_현재_시간이_테스트할_때마다_변경됨() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(americano);
+
+        Order order = cafeKiosk.createOrder();
+
+        assertThat(order.getBeverages().size()).isEqualTo(1);
+        assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
     void createOrder() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
