@@ -3,7 +3,6 @@ package com.example.tddexample.kiosk.unit;
 import com.example.tddexample.kiosk.unit.beverage.Beverage;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
