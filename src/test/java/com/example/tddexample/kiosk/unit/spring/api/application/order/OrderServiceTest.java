@@ -8,12 +8,15 @@ import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
+import com.example.tddexample.kiosk.unit.spring.domain.stock.Stock;
+import com.example.tddexample.kiosk.unit.spring.domain.stock.StockRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +26,7 @@ import static org.assertj.core.api.Assertions.tuple;
 
 @ActiveProfiles("test")
 @SpringBootTest
+@Transactional
 class OrderServiceTest {
     @Autowired
     private OrderService orderService;
@@ -32,13 +36,15 @@ class OrderServiceTest {
     private OrderRepository orderRepository;
     @Autowired
     private OrderProductRepository orderProductRepository;
+    @Autowired
+    private StockRepository stockRepository;
 
-    @AfterEach
-    void tearDown() {
-        orderProductRepository.deleteAllInBatch();
-        productRepository.deleteAllInBatch();
-        orderRepository.deleteAllInBatch();
-    }
+//    @AfterEach
+//    void tearDown() {
+//        orderProductRepository.deleteAllInBatch();
+//        productRepository.deleteAllInBatch();
+//        orderRepository.deleteAllInBatch();
+//    }
 
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
@@ -93,6 +99,50 @@ class OrderServiceTest {
                         tuple("001", 4000)
                 );
     }
+
+    @DisplayName("재고와 관련된 상품이 포함되어 있는 주문번호 리스트를 받아 주문을 생성한다.")
+    @Test
+    void createOrderWithStock() {
+        //give
+        LocalDateTime nowDateTine = LocalDateTime.now();
+
+        Product product1 = createProduct("001", ProductType.HANDMADE, 4000);
+        Product product2 = createProduct("002", ProductType.HANDMADE, 4500);
+        Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
+        productRepository.saveAll(List.of(product1, product2, product3));
+
+        Stock stock1 = new Stock("001", 2);
+        Stock stock2 = new Stock("002", 2);
+        stockRepository.saveAll(List.of(stock1, stock2));
+
+        OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
+
+        //when
+        OrderResponse orderResponse = orderService.createOrder(request, nowDateTine);
+
+        //then
+        assertThat(orderResponse.getId()).isNotNull();
+        assertThat(orderResponse)
+                .extracting("registeredDateTime", "totalPrice")
+                .contains(nowDateTine, 17500);
+        assertThat(orderResponse.getProducts()).hasSize(4)
+                .extracting("productNumber", "price")
+                .containsExactlyInAnyOrder(
+                        tuple("001", 4000),
+                        tuple("001", 4000),
+                        tuple("002", 4500),
+                        tuple("003", 5000)
+                );
+
+        List<Stock> stocks = stockRepository.findAll();
+        assertThat(stocks).hasSize(2)
+                .extracting("productNumber", "quantity")
+                .containsExactlyInAnyOrder(
+                        tuple("001", 0),
+                        tuple("002", 1)
+                );
+    }
+
 
     private Product createProduct(String productNumber, ProductType type, int price) {
         return new Product(
