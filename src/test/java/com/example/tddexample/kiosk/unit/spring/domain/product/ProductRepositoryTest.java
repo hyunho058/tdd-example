@@ -96,8 +96,9 @@ class ProductRepositoryTest {
 
     @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 가져온다.")
     @Test
-    void findLatestProduct() {
+    void findLatestProductNumber() {
         //give
+        String targetProductNumber = "003";
         Product product1 = new Product(
             "001",
             ProductType.HANDMADE,
@@ -111,7 +112,7 @@ class ProductRepositoryTest {
             "카페라뗴",
             4500);
         Product product3 = new Product(
-            "003",
+            targetProductNumber,
             ProductType.HANDMADE,
             ProductSellingStatus.STOP_SELLING,
             "빙수",
@@ -123,6 +124,16 @@ class ProductRepositoryTest {
         String latestProductNumber = productRepository.findLatestProduct();
 
         //then
-        assertThat(latestProductNumber).isEqualTo("003");
+        assertThat(latestProductNumber).isEqualTo(targetProductNumber);
+    }
+
+    @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 가져올 때, 상품이 없는 경우 null을 반환")
+    @Test
+    void findLatestProductNumberWhenProductIsEmpty() {
+        //when
+        String latestProductNumber = productRepository.findLatestProduct();
+
+        //then
+        assertThat(latestProductNumber).isNull();
     }
 }
