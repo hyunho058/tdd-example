@@ -21,7 +21,7 @@ class ProductRepositoryTest {
     @DisplayName("원하는 판매상태를 가진 상품을 조회한다.")
     @Test
     void findAllBySellingStatusIn() {
-        //give
+        //given
         Product product1 = new Product(
             "001",
             ProductType.HANDMADE,
@@ -59,7 +59,7 @@ class ProductRepositoryTest {
     @DisplayName("상품번호 리스트로 상품을 조회한다.")
     @Test
     void findAllByProductNumberIn() {
-        //give
+        //given
         Product product1 = new Product(
             "001",
             ProductType.HANDMADE,
@@ -97,7 +97,7 @@ class ProductRepositoryTest {
     @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 가져온다.")
     @Test
     void findLatestProductNumber() {
-        //give
+        //given
         String targetProductNumber = "003";
         Product product1 = new Product(
             "001",

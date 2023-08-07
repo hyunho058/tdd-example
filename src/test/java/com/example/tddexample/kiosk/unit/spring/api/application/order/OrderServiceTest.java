@@ -50,7 +50,7 @@ class OrderServiceTest {
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrder() {
-        //give
+        //given
         Product product1 = createProduct("001", ProductType.HANDMADE, 4000);
         Product product2 = createProduct("002", ProductType.HANDMADE, 4500);
         Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
@@ -77,7 +77,7 @@ class OrderServiceTest {
     @DisplayName("중복되는 상품번호 리스트로 주문을 생성할 수 있다.")
     @Test
     void createOrderWithDuplicateProductNumber() {
-        //give
+        //given
         Product product1 = createProduct("001", ProductType.HANDMADE, 4000);
         Product product2 = createProduct("002", ProductType.HANDMADE, 4500);
         Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
@@ -104,7 +104,7 @@ class OrderServiceTest {
     @DisplayName("재고와 관련된 상품이 포함되어 있는 주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrderWithStock() {
-        //give
+        //given
         LocalDateTime nowDateTine = LocalDateTime.now();
 
         Product product1 = createProduct("001", ProductType.BOTTLE, 4000);
@@ -147,7 +147,7 @@ class OrderServiceTest {
     @DisplayName("재고가 없는 상품으로 주문을 생성하는 경우 예외가 발생한다.")
     @Test
     void createOrderWithNoStock() {
-        //give
+        //given
         LocalDateTime nowDateTine = LocalDateTime.now();
 
         Product product1 = createProduct("001", ProductType.BOTTLE, 4000);
