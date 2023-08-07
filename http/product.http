@@ -1,0 +1,3 @@
+### 판매 상품 목록 조회
+GET http://localhost:8080//api/vi/products/selling
+Accept: application/json
