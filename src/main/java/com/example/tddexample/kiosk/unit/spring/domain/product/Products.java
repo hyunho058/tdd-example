@@ -22,4 +22,11 @@ public class Products {
                 .map(productMap::get).collect(Collectors.toList());
     }
 
+    public List<String> containProductNumberType() {
+        return products.stream()
+                .filter(product -> ProductType.containsStockType(product.getType()))
+                .map(Product::getProductNumber)
+                .collect(Collectors.toList());
+    }
+
 }
