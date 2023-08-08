@@ -1,4 +1,4 @@
-package com.example.tddexample.kiosk.unit.spring.api.comon.dto;
+package com.example.tddexample.kiosk.unit.spring.comon.dto;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

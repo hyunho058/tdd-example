@@ -1,8 +1,8 @@
 package com.example.tddexample.kiosk.unit.spring.api.presentation.product;
 
 import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductService;
-import com.example.tddexample.kiosk.unit.spring.api.application.product.response.ProductResponse;
-import com.example.tddexample.kiosk.unit.spring.api.comon.dto.ApiResponse;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.comon.dto.ApiResponse;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class ProductController {
     public ApiResponse<ProductResponse> createProduct(@Valid @RequestBody ProductCreateRequest request) {
         return new ApiResponse<>(
                 HttpStatus.CREATED,
-                productService.createProduct(request));
+                productService.createProduct(request.toServiceRequest()));
     }
 
     @GetMapping("/api/vi/products/selling")

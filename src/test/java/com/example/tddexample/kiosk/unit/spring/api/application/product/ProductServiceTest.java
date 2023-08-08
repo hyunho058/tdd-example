@@ -1,12 +1,11 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.product;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,7 @@ class ProductServiceTest {
                 5000
             );
         //when
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductResponse productResponse = productService.createProduct(request.toServiceRequest());
 
         //then
         assertThat(productResponse)
@@ -76,7 +75,7 @@ class ProductServiceTest {
                 5000
             );
         //when
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductResponse productResponse = productService.createProduct(request.toServiceRequest());
 
         //then
         assertThat(productResponse)

@@ -1,6 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.product;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.api.application.product.dto.ProductCreateServiceRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductRepository;
@@ -27,7 +28,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductResponse createProduct(ProductCreateRequest request) {
+    public ProductResponse createProduct(ProductCreateServiceRequest request) {
         //productNumber
         //001, 002, 003
         //DB에서 마지막 저장된 product의 상품번호 조회해서 +1

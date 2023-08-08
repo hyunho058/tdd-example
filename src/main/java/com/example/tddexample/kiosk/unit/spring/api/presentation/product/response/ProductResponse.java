@@ -1,4 +1,4 @@
-package com.example.tddexample.kiosk.unit.spring.api.application.product.response;
+package com.example.tddexample.kiosk.unit.spring.api.presentation.product.response;
 
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;

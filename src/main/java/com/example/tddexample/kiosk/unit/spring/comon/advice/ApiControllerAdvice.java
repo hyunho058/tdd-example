@@ -1,6 +1,6 @@
-package com.example.tddexample.kiosk.unit.spring.api.comon.advice;
+package com.example.tddexample.kiosk.unit.spring.comon.advice;
 
-import com.example.tddexample.kiosk.unit.spring.api.comon.dto.ApiResponse;
+import com.example.tddexample.kiosk.unit.spring.comon.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

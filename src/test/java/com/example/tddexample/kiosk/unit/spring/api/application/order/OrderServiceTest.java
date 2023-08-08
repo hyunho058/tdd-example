@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.order.request.OrderCreateRequest;
-import com.example.tddexample.kiosk.unit.spring.api.application.order.response.OrderResponse;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.order.request.OrderCreateRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.orderproduct.OrderProductRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
@@ -10,7 +10,6 @@ import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingSta
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import com.example.tddexample.kiosk.unit.spring.domain.stock.Stock;
 import com.example.tddexample.kiosk.unit.spring.domain.stock.StockRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "002"));
         LocalDateTime nowDateTine = LocalDateTime.now();
         //when
-        OrderResponse orderResponse = orderService.createOrder(request, nowDateTine);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -86,7 +85,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001"));
         LocalDateTime nowDateTine = LocalDateTime.now();
         //when
-        OrderResponse orderResponse = orderService.createOrder(request, nowDateTine);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -119,7 +118,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
 
         //when
-        OrderResponse orderResponse = orderService.createOrder(request, nowDateTine);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -162,7 +161,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
 
         //when //then
-        assertThatThrownBy(() -> orderService.createOrder(request, nowDateTine))
+        assertThatThrownBy(() -> orderService.createOrder(request.toServiceRequest(), nowDateTine))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("주문한 수량보다 재고가 적습니다.");
     }

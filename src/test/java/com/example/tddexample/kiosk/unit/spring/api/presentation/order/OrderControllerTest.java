@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.presentation.order;
 
 import com.example.tddexample.kiosk.unit.spring.api.application.order.OrderService;
-import com.example.tddexample.kiosk.unit.spring.api.application.order.request.OrderCreateRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.order.request.OrderCreateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

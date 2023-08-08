@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.presentation.product;
 
 import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductService;
-import com.example.tddexample.kiosk.unit.spring.api.application.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
