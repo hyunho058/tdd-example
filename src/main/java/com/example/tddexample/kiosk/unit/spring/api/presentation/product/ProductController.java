@@ -21,7 +21,6 @@ public class ProductController {
 
     @PostMapping("/api/v2/products/new")
     public ApiResponse<ProductResponse> createProduct(@Valid @RequestBody ProductCreateRequest request) {
-        System.out.println("request = " + request);
         return new ApiResponse<>(
                 HttpStatus.CREATED,
                 productService.createProduct(request));
