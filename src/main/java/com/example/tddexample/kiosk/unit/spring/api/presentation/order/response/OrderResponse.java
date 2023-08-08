@@ -1,7 +1,7 @@
-package com.example.tddexample.kiosk.unit.spring.api.application.order.response;
+package com.example.tddexample.kiosk.unit.spring.api.presentation.order.response;
 
 
-import com.example.tddexample.kiosk.unit.spring.api.application.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.order.Order;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import lombok.Getter;

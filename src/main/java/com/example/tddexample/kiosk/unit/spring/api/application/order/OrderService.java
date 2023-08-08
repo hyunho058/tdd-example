@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.order.request.OrderCreateRequest;
-import com.example.tddexample.kiosk.unit.spring.api.application.order.response.OrderResponse;
+import com.example.tddexample.kiosk.unit.spring.api.application.order.dto.OrderCreateServiceRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.order.Order;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
@@ -27,7 +27,7 @@ public class OrderService {
     private final StockRepository stockRepository;
 
     @Transactional
-    public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
+    public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
         List<String> productNumbers = request.productNumbers();
         Products products = new Products(productRepository.findAllByProductNumberIn(productNumbers));
 

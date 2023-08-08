@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.order.request.OrderCreateRequest;
-import com.example.tddexample.kiosk.unit.spring.api.application.order.response.OrderResponse;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.order.request.OrderCreateRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.orderproduct.OrderProductRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
@@ -10,7 +10,6 @@ import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingSta
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import com.example.tddexample.kiosk.unit.spring.domain.stock.Stock;
 import com.example.tddexample.kiosk.unit.spring.domain.stock.StockRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ class OrderServiceTest {
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrder() {
-        //give
+        //given
         Product product1 = createProduct("001", ProductType.HANDMADE, 4000);
         Product product2 = createProduct("002", ProductType.HANDMADE, 4500);
         Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
@@ -59,7 +58,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "002"));
         LocalDateTime nowDateTine = LocalDateTime.now();
         //when
-        OrderResponse orderResponse = orderService.createOrder(request, nowDateTine);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -77,7 +76,7 @@ class OrderServiceTest {
     @DisplayName("중복되는 상품번호 리스트로 주문을 생성할 수 있다.")
     @Test
     void createOrderWithDuplicateProductNumber() {
-        //give
+        //given
         Product product1 = createProduct("001", ProductType.HANDMADE, 4000);
         Product product2 = createProduct("002", ProductType.HANDMADE, 4500);
         Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
@@ -86,7 +85,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001"));
         LocalDateTime nowDateTine = LocalDateTime.now();
         //when
-        OrderResponse orderResponse = orderService.createOrder(request, nowDateTine);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -104,7 +103,7 @@ class OrderServiceTest {
     @DisplayName("재고와 관련된 상품이 포함되어 있는 주문번호 리스트를 받아 주문을 생성한다.")
     @Test
     void createOrderWithStock() {
-        //give
+        //given
         LocalDateTime nowDateTine = LocalDateTime.now();
 
         Product product1 = createProduct("001", ProductType.BOTTLE, 4000);
@@ -119,7 +118,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
 
         //when
-        OrderResponse orderResponse = orderService.createOrder(request, nowDateTine);
+        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -147,7 +146,7 @@ class OrderServiceTest {
     @DisplayName("재고가 없는 상품으로 주문을 생성하는 경우 예외가 발생한다.")
     @Test
     void createOrderWithNoStock() {
-        //give
+        //given
         LocalDateTime nowDateTine = LocalDateTime.now();
 
         Product product1 = createProduct("001", ProductType.BOTTLE, 4000);
@@ -162,7 +161,7 @@ class OrderServiceTest {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
 
         //when //then
-        assertThatThrownBy(() -> orderService.createOrder(request, nowDateTine))
+        assertThatThrownBy(() -> orderService.createOrder(request.toServiceRequest(), nowDateTine))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("주문한 수량보다 재고가 적습니다.");
     }

@@ -15,7 +15,7 @@ class OrderTest {
     @DisplayName("주문 생성 시 상품 리스트에서 주문의총 금액을 계산한다,")
     @Test
     void calculatorTotalPrice() {
-        //give
+        //given
         List<Product> products = List.of(
             createProduct("001", 4000),
             createProduct("002", 3500)
@@ -30,7 +30,7 @@ class OrderTest {
     @DisplayName("주문 생성 시 주문 상태는 INIT 이다.")
     @Test
     void init() {
-        //give
+        //given
         List<Product> products = List.of(
             createProduct("001", 4000),
             createProduct("002", 3500)
@@ -47,7 +47,7 @@ class OrderTest {
     @DisplayName("주문 생성 시 주문 등록 시간을 기록한다.")
     @Test
     void registeredDateTime() {
-        //give
+        //given
         LocalDateTime registeredDateTime = LocalDateTime.now();
 
         List<Product> products = List.of(
