@@ -15,9 +15,9 @@ public class MailService { ///mail send and history save service
     private final MailSendHistoryRepository mailSendHistoryRepository;
 
     public boolean send(String fromEmail,
-                     String toEmail,
-                     String subject,
-                     String content) {
+                        String toEmail,
+                        String subject,
+                        String content) {
 
         boolean result = mailSendClient.send(fromEmail, toEmail, subject, content);
 
