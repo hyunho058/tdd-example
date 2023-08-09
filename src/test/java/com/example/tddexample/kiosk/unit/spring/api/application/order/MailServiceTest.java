@@ -6,6 +6,7 @@ import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHist
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -64,9 +65,10 @@ class MailServiceTest {
 
 //        MailService mailService = new MailService(mailSendClient, mailSendHistoryRepository);
 
-        //stubbing
-        when(mailSendClient.send(any(String.class), any(String.class), any(String.class), any(String.class)))
-            .thenReturn(true);
+//        Mockito.when(mailSendClient.send(any(String.class), any(String.class), any(String.class), any(String.class)))
+//            .thenReturn(true);
+        BDDMockito.given(mailSendClient.send(any(String.class), any(String.class), any(String.class), any(String.class)))
+            .willReturn(true);
 
         //when
         boolean result = mailService.send("", "", "", "");
