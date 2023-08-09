@@ -1,7 +1,5 @@
 package com.example.tddexample.kiosk.unit.spring.domain.order;
 
-import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
 @DataJpaTest
 class OrderRepositoryTest {
@@ -45,8 +43,13 @@ class OrderRepositoryTest {
         );
 
         orderRepository.saveAll(List.of(order1,order2, order3));
+
         //when
-        List<Order> orders = orderRepository.findOrderBy(startDateTime, endDateTime, OrderStatus.PAYMENT_COMPLETED);
+        List<Order> orders = orderRepository.findOrdersBy(
+                startDateTime,
+                endDateTime,
+                OrderStatus.PAYMENT_COMPLETED
+        );
 
         //then
         assertThat(orders).hasSize(1)

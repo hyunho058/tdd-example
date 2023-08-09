@@ -32,6 +32,15 @@ public class Order extends BaseEntity {
     protected Order() {
     }
 
+    public Order(OrderStatus status, List<Product> products, LocalDateTime registeredDateTime) {
+        this.orderStatus = status;
+        this.totalPrice = sumTotalPrice(products);
+        this.registeredDateTime = registeredDateTime;
+        this.orderProduct = products.stream()
+                .map(product -> new OrderProduct(this, product))
+                .collect(Collectors.toList());
+    }
+
     public Order(List<Product> products, LocalDateTime registeredDateTime) {
         this.orderStatus = OrderStatus.INIT;
         this.totalPrice = sumTotalPrice(products);
