@@ -24,6 +24,7 @@ import static org.mockito.Mockito.*;
 //@ActiveProfiles("test")
 //@SpringBootTest
 //@Transactional
+@ExtendWith(MockitoExtension.class)
 class MailServiceTest {
 //    @Autowired
 //    private MailService mailService;
@@ -47,16 +48,21 @@ class MailServiceTest {
 //        assertThat(result).isTrue();
 //    }
 
-
+    @Mock
+    private MailSendClient mailSendClient;
+    @Mock
+    private MailSendHistoryRepository mailSendHistoryRepository;
+    @InjectMocks
+    private MailService mailService;
 
     @DisplayName("메일 전송 테스트")
     @Test
     void sendMail(){
         //given
-        MailSendClient mailSendClient = mock(MailSendClient.class);
-        MailSendHistoryRepository mailSendHistoryRepository = mock(MailSendHistoryRepository.class);
+//        MailSendClient mailSendClient = mock(MailSendClient.class);
+//        MailSendHistoryRepository mailSendHistoryRepository = mock(MailSendHistoryRepository.class);
 
-        MailService mailService = new MailService(mailSendClient, mailSendHistoryRepository);
+//        MailService mailService = new MailService(mailSendClient, mailSendHistoryRepository);
 
         //stubbing
         when(mailSendClient.send(any(String.class), any(String.class), any(String.class), any(String.class)))
