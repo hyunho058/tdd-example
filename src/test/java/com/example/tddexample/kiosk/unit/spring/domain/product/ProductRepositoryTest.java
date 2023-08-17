@@ -1,20 +1,21 @@
 package com.example.tddexample.kiosk.unit.spring.domain.product;
 
+import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 //@SpringBootTest
-@DataJpaTest //@SpringBootTest 보다 가볍다,
-class ProductRepositoryTest {
+//@DataJpaTest //@SpringBootTest 보다 가볍다,
+@Transactional
+class ProductRepositoryTest extends IntegrationTestSupport {
     @Autowired
     private ProductRepository productRepository;
 

@@ -3,10 +3,10 @@ package com.example.tddexample;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class TddExampleApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 

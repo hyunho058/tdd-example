@@ -1,34 +1,21 @@
 package com.example.tddexample.kiosk.unit.spring.api.presentation.product;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductService;
-import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.ControllerTestSupport;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-@WebMvcTest(controllers = ProductController.class)
-class ProductControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
-    private ProductService productService;
+class ProductControllerTest extends ControllerTestSupport {
 
     @DisplayName("신규 상품을 등록한다.")
     @Test

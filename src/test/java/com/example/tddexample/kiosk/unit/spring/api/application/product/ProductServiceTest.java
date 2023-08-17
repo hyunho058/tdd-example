@@ -1,7 +1,8 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.product;
 
-import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
@@ -9,19 +10,15 @@ import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.groups.Tuple.*;
+import static org.assertj.core.groups.Tuple.tuple;
 
-@ActiveProfiles("test")
 @Transactional
-@SpringBootTest
-class ProductServiceTest {
+class ProductServiceTest extends IntegrationTestSupport {
     @Autowired
     private ProductService productService;
     @Autowired

@@ -1,6 +1,6 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
-import com.example.tddexample.kiosk.unit.spring.client.mail.MailSendClient;
+import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
 import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistory;
 import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.order.Order;
@@ -13,9 +13,6 @@ import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -26,10 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ActiveProfiles("test")
-@SpringBootTest
+//@ActiveProfiles("test")
+//@SpringBootTest
 @Transactional
-class OrderStatisticsServiceTest {
+class OrderStatisticsServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderStatisticsService orderStatisticsService;
@@ -39,8 +36,6 @@ class OrderStatisticsServiceTest {
     private ProductRepository productRepository;
     @Autowired
     private MailSendHistoryRepository mailSendHistoryRepository;
-    @MockBean
-    private MailSendClient mailSendClient;
 
     @DisplayName("결제완료 주문들을 조회화여 매출 통계 메일을 전송한다.")
     @Test
