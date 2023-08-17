@@ -10,11 +10,14 @@ import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingSta
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -98,6 +101,58 @@ public class ProductControllerDocsTest extends RestDocsSupport {
                                 fieldWithPath("data.name").type(JsonFieldType.STRING)
                                         .description("상품 이름"),
                                 fieldWithPath("data.price").type(JsonFieldType.NUMBER)
+                                        .description("상품 가격")
+                        )
+                ));
+    }
+
+    @DisplayName("판매 상품을 조회하는 API")
+    @Test
+    void getSellingProducts() throws Exception {
+        List<ProductResponse> result = List.of();
+        Mockito.when(productService.getSellingProducts()).thenReturn(result);
+
+        given(productService.getSellingProducts())
+                .willReturn(List.of(
+                        new ProductResponse(
+                                1L,
+                                "001",
+                                ProductType.HANDMADE,
+                                ProductSellingStatus.SELLING,
+                                "아메리카노",
+                                4000
+                        )));
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/vi/products/selling")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data").isArray())
+                .andDo(document("product-get",
+                        preprocessResponse(prettyPrint()),
+                        responseFields(
+                                fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                        .description("코드"),
+                                fieldWithPath("status").type(JsonFieldType.STRING)
+                                        .description("상태"),
+                                fieldWithPath("message").type(JsonFieldType.STRING)
+                                        .description("메시지"),
+                                fieldWithPath("data").type(JsonFieldType.ARRAY)
+                                        .description("응답 데이터"),
+                                fieldWithPath("data[].id").type(JsonFieldType.NUMBER)
+                                        .description("상품 ID"),
+                                fieldWithPath("data[].productNumber").type(JsonFieldType.STRING)
+                                        .description("상품 번호"),
+                                fieldWithPath("data[].type").type(JsonFieldType.STRING)
+                                        .description("상품 타입"),
+                                fieldWithPath("data[].sellingStatus").type(JsonFieldType.STRING)
+                                        .description("상품 판매상태"),
+                                fieldWithPath("data[].name").type(JsonFieldType.STRING)
+                                        .description("상품 이름"),
+                                fieldWithPath("data[].price").type(JsonFieldType.NUMBER)
                                         .description("상품 가격")
                         )
                 ));
