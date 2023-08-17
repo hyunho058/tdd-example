@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -29,6 +30,8 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 
 public class ProductControllerDocsTest extends RestDocsSupport {
 
@@ -131,7 +134,7 @@ public class ProductControllerDocsTest extends RestDocsSupport {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("OK"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("OK"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data").isArray())
-                .andDo(document("product-get",
+                .andDo(document("product-get-list",
                         preprocessResponse(prettyPrint()),
                         responseFields(
                                 fieldWithPath("code").type(JsonFieldType.NUMBER)
@@ -153,6 +156,60 @@ public class ProductControllerDocsTest extends RestDocsSupport {
                                 fieldWithPath("data[].name").type(JsonFieldType.STRING)
                                         .description("상품 이름"),
                                 fieldWithPath("data[].price").type(JsonFieldType.NUMBER)
+                                        .description("상품 가격")
+                        )
+                ));
+    }
+
+    @DisplayName("상품 단건 조회 API")
+    @Test
+    void getProduct() throws Exception {
+        //given
+        Long id = 1L;
+        given(productService.getProduct(any(Long.class)))
+                .willReturn(new ProductResponse(
+                        1L,
+                        "001",
+                        ProductType.HANDMADE,
+                        ProductSellingStatus.SELLING,
+                        "아메리카노",
+                        4000
+                ));
+
+        //when
+        //then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/api/vi/products/{id}", id) //pathParameters를 사용할거면 MockMvcBuilders 보다 RestDocumentationRequestBuilders를 이용하는 것이 좋다고 한다.
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("OK"))
+                .andDo(document("product-get",
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("id").description("상품 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("code").type(JsonFieldType.NUMBER)
+                                        .description("코드"),
+                                fieldWithPath("status").type(JsonFieldType.STRING)
+                                        .description("상태"),
+                                fieldWithPath("message").type(JsonFieldType.STRING)
+                                        .description("메시지"),
+                                fieldWithPath("data").type(JsonFieldType.OBJECT)
+                                        .description("응답 데이터"),
+                                fieldWithPath("data.id").type(JsonFieldType.NUMBER)
+                                        .description("상품 ID"),
+                                fieldWithPath("data.productNumber").type(JsonFieldType.STRING)
+                                        .description("상품 번호"),
+                                fieldWithPath("data.type").type(JsonFieldType.STRING)
+                                        .description("상품 타입"),
+                                fieldWithPath("data.sellingStatus").type(JsonFieldType.STRING)
+                                        .description("상품 판매상태"),
+                                fieldWithPath("data.name").type(JsonFieldType.STRING)
+                                        .description("상품 이름"),
+                                fieldWithPath("data.price").type(JsonFieldType.NUMBER)
                                         .description("상품 가격")
                         )
                 ));

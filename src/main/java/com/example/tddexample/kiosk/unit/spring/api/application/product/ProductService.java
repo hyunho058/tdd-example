@@ -36,4 +36,8 @@ public class ProductService {
 
         return new ProductResponse(savedProduct);
     }
+
+    public ProductResponse getProduct(Long id) {
+        return null;
+    }
 }
