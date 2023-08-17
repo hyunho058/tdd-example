@@ -1,9 +1,9 @@
 package com.example.tddexample.kiosk.unit.spring.domain.order;
 
+import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,8 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-@DataJpaTest
-class OrderRepositoryTest {
+class OrderRepositoryTest extends IntegrationTestSupport {
     @Autowired
     private OrderRepository orderRepository;
 
