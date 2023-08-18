@@ -36,4 +36,11 @@ public class ProductService {
 
         return new ProductResponse(savedProduct);
     }
+
+    public ProductResponse getProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("NOT FOUND"));
+
+        return new ProductResponse(product);
+    }
 }
