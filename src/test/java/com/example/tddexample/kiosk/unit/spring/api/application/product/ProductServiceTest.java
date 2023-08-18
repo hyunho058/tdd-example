@@ -86,4 +86,27 @@ class ProductServiceTest extends IntegrationTestSupport {
                 tuple("001", ProductType.HANDMADE, ProductSellingStatus.SELLING, "카푸치노", 5000)
             );
     }
+
+    @DisplayName("상품 정보를 조회 한다.")
+    @Test
+    void getProduct() {
+        //given
+        Product newProduct = new Product(
+                "001",
+                ProductType.HANDMADE,
+                ProductSellingStatus.SELLING,
+                "아메리카노",
+                4000);
+        Product savedProduct = productRepository.save(newProduct);
+
+        Long savedProductId = savedProduct.getId();
+
+        //when
+        ProductResponse retrievedProduct = productService.getProduct(savedProductId);
+
+        //then
+        assertThat(retrievedProduct)
+                .extracting("productNumber", "type", "sellingStatus", "name", "price")
+                .contains("001", ProductType.HANDMADE, ProductSellingStatus.SELLING, "아메리카노", 4000);
+    }
 }

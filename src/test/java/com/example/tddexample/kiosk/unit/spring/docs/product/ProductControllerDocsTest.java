@@ -186,6 +186,7 @@ public class ProductControllerDocsTest extends RestDocsSupport {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("OK"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("OK"))
                 .andDo(document("product-get",
+                        preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
                                 parameterWithName("id").description("상품 ID")

@@ -38,6 +38,9 @@ public class ProductService {
     }
 
     public ProductResponse getProduct(Long id) {
-        return null;
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("NOT FOUND"));
+
+        return new ProductResponse(product);
     }
 }
