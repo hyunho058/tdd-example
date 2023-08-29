@@ -1,34 +1,25 @@
 package com.example.tddexample.kiosk.unit.spring.api.presentation.product;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductService;
-import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
+import com.example.tddexample.kiosk.unit.spring.ControllerTestSupport;
+import com.example.tddexample.kiosk.unit.spring.api.application.product.dto.ProductCreateServiceRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-@WebMvcTest(controllers = ProductController.class)
-class ProductControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
-    @MockBean
-    private ProductService productService;
+class ProductControllerTest extends ControllerTestSupport {
 
     @DisplayName("신규 상품을 등록한다.")
     @Test
@@ -154,19 +145,45 @@ class ProductControllerTest {
 
     @DisplayName("판매 상품을 조회한다.")
     @Test
-    void getSellingProducts() throws Exception{
+    void getSellingProducts() throws Exception {
         //given
         List<ProductResponse> result = List.of();
         Mockito.when(productService.getSellingProducts()).thenReturn(result);
         //when
         //then
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/vi/products/selling")
-        ).andDo(MockMvcResultHandlers.print())
+                        MockMvcRequestBuilders.get("/api/vi/products/selling")
+                ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("OK"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("OK"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data").isArray());
+    }
+
+    @DisplayName("상품 단건 조회한다.")
+    @Test
+    void getProduct() throws Exception {
+        //given
+        Long id = 1L;
+        given(productService.getProduct(any(Long.class)))
+                .willReturn(new ProductResponse(
+                        1L,
+                        "001",
+                        ProductType.HANDMADE,
+                        ProductSellingStatus.SELLING,
+                        "아메리카노",
+                        4000
+                ));
+
+        //when
+        //then
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/api/vi/products/{id}", id)
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("OK"));
     }
 }

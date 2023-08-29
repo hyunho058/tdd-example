@@ -1,5 +1,6 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
+import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.request.OrderCreateRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderRepository;
@@ -13,8 +14,6 @@ import com.example.tddexample.kiosk.unit.spring.domain.stock.StockRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -24,10 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
-@ActiveProfiles("test")
-@SpringBootTest
 @Transactional
-class OrderServiceTest {
+class OrderServiceTest extends IntegrationTestSupport {
     @Autowired
     private OrderService orderService;
     @Autowired
