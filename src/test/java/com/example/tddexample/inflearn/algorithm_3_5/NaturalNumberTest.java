@@ -1,4 +1,4 @@
-package com.example.tddexample.inflearn.algoritm_3_5;
+package com.example.tddexample.inflearn.algorithm_3_5;
 
 import org.junit.jupiter.api.Test;
 
