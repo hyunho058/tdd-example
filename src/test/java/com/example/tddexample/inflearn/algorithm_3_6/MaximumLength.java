@@ -1,8 +1,22 @@
 package com.example.tddexample.inflearn.algorithm_3_6;
 
+import java.util.Scanner;
+
 public class MaximumLength {
 
-    public int transformation(int n, int[] binaryArr) {
+    public static void main(String[] args) {
+        MaximumLength main = new MaximumLength();
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int k = scanner.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+        System.out.println(main.transformation(k, arr));
+    }
+
+    public int transformation(int k, int[] binaryArr) {
         int leftIdx = 0;
         int maxLength = 0;
         int currentLength = 0;
@@ -16,7 +30,7 @@ public class MaximumLength {
             currentLength++;
 
             //0을 1로 변환할 수 있는 수 'n'을 초과하면 가장 처음 바꾼 0까지 찾으며 현재 길이 감소
-            while (convertibleCount > n) {
+            while (convertibleCount > k) {
                 if (binaryArr[leftIdx++] == 0) {
                     convertibleCount--;
                 }

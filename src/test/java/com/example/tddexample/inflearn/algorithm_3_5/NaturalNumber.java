@@ -1,5 +1,7 @@
 package com.example.tddexample.inflearn.algorithm_3_5;
 
+import java.util.Scanner;
+
 public class NaturalNumber {
     private final int number;
 
@@ -45,4 +47,11 @@ public class NaturalNumber {
         return startPosition;
     }
 
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+
+        NaturalNumber main = new NaturalNumber(n);
+        System.out.print(main.calc());
+    }
 }
