@@ -18,7 +18,7 @@ public class ClassPresidentTest {
     @Test
     void test1() {
         ClassPresident classPresident = new ClassPresident();
-        String result = classPresident.elected(3, "ABA");
+        String result = classPresident.elected("ABA");
 
         assertThat(result).isEqualTo("A");
     }
@@ -28,7 +28,6 @@ public class ClassPresidentTest {
     void test2() {
         ClassPresident classPresident = new ClassPresident();
         String result = classPresident.elected(
-            3,
             "BACBACCACCBDEDE"
         );
 

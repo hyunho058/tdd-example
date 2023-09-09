@@ -9,27 +9,15 @@ public class ClassPresident {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         String arr = scanner.next();
-        System.out.println(main.elected(n, arr));
+        System.out.println(main.elected(arr));
     }
 
-    public String elected(int n, String votes) {
-        Map<String, Integer> voteMap = new HashMap<>();
+    public String elected(String votes) {
+        Map<String, Long> voteMap = Arrays.stream(votes.split(""))
+            .collect(Collectors.groupingBy(v -> v, Collectors.counting()));
 
-        for (char vote : votes.toCharArray()) {
-            String key = String.valueOf(vote);
-            voteMap.put(key, voteMap.getOrDefault(key, 0) + 1);
-        }
-
-        String president = "";
-        long maxCount = 0;
-
-        for (String vote : voteMap.keySet()){
-            if (maxCount < voteMap.get(vote)) {
-                president = vote;
-                maxCount = voteMap.get(vote);
-            }
-        }
-
-        return president;
+        return voteMap.keySet().stream()
+            .max(Comparator.comparing(voteMap::get))
+            .orElse("");
     }
 }
