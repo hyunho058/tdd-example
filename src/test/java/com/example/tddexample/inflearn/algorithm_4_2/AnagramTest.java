@@ -1,11 +1,10 @@
-package com.example.tddexample.inflearn.anagram;
+package com.example.tddexample.inflearn.algorithm_4_2;
 
-import org.assertj.core.api.Assertions;
+import com.example.tddexample.inflearn.algorithm_4_2.Anagram;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AnagramTest {
 

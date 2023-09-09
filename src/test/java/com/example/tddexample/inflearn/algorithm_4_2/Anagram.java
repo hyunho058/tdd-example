@@ -1,6 +1,4 @@
-package com.example.tddexample.inflearn.anagram;
-
-import com.sun.tools.javac.Main;
+package com.example.tddexample.inflearn.algorithm_4_2;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -19,7 +17,7 @@ public class Anagram {
         System.out.println(result);
     }
     public String anagram(String s1, String s2) {
-        if (isNOtSameLength(s1, s2)) {
+        if (isNotSameLength(s1, s2)) {
             return "NO";
         }
 
@@ -39,7 +37,7 @@ public class Anagram {
         return "YES";
     }
 
-    private boolean isNOtSameLength(String s1, String s2) {
+    private boolean isNotSameLength(String s1, String s2) {
         return s1.length() != s2.length();
     }
 
