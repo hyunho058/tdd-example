@@ -24,11 +24,11 @@ public class ClawCraneTest {
     @Test
     void testCase1() {
         int[][] board = new int[][]{
-                {3, 5, 1, 3, 1},
-                {4, 2, 4, 4, 2},
-                {0, 2, 5, 0, 1},
-                {0, 0, 1, 0, 3},
-                {0, 0, 0, 0, 0}
+            {0, 0, 0, 0, 0},
+            {0, 0, 1, 0, 3},
+            {0, 2, 5, 0, 1},
+            {4, 2, 4, 4, 2},
+            {3, 5, 1, 3, 1}
         };
 
         int[] moves = new int[]{1, 5, 3, 5, 1, 2, 1, 4};
@@ -42,8 +42,8 @@ public class ClawCraneTest {
     @Test
     void testCase2() {
         int[][] board = new int[][]{
-                {1, 3},
-                {2, 3}
+            {2, 3},
+            {1, 3}
         };
 
         int[] moves = new int[]{1, 1, 2, 2};
@@ -57,8 +57,8 @@ public class ClawCraneTest {
     @Test
     void testCase3() {
         int[][] board = new int[][]{
-                {1, 3},
-                {2, 3}
+            {2, 3},
+            {1, 3}
         };
 
         int[] moves = new int[]{1, 2, 1, 2};
@@ -72,9 +72,9 @@ public class ClawCraneTest {
     @Test
     void testCase4() {
         int[][] board = new int[][]{
-                {0, 0, 0},
-                {0, 0, 0},
-                {0, 0, 0}
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}
         };
 
         int[] moves = new int[]{1, 2, 1, 2};
