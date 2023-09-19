@@ -1,13 +1,24 @@
 package com.example.tddexample.inflearn.algorithm_5_8;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
-public
+public class Care {
 
-class Care {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int m = scanner.nextInt();
+        int[] numberArr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            numberArr[i] = scanner.nextInt();
+        }
+
+        Care core = new Care();
+        int result = core.orderNumber(numberArr, m);
+
+        System.out.println(result);
+    }
 
     public int orderNumber(int[] patients, int m) {
         Queue<Patient> patientQueue = new LinkedList<>();
