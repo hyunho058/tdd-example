@@ -2,8 +2,20 @@ package com.example.tddexample.inflearn.algorithm_5_7;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class ClassPlan {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String compulsorySubject = scanner.nextLine();
+        String subject = scanner.nextLine();
+
+        ClassPlan main = new ClassPlan();
+        String result = main.available(compulsorySubject, subject);
+
+        System.out.println(result);
+    }
 
     public String available(String compulsorySubject, String subject) {
         Queue<Character> compulsorySubjectQueue = new LinkedList<>();
