@@ -1,11 +1,14 @@
 package com.example.tddexample.inflearn.dfs.sequenceprediction;
 
+import java.util.Scanner;
+
 public class SequencePrediction {
     private final int n;
     private final int f;
     private final int[] results;
     private final int[] combinations;
     private final int[] checked;
+    private boolean flag = false;
 
     public SequencePrediction(int n, int f, int[] combinations) {
         this.n = n;
@@ -15,27 +18,18 @@ public class SequencePrediction {
         this.checked = new int[n + 1];
     }
 
-    public void dfs(int l, int number, int sum) {
-//        System.out.println("------------------------------");
-//        System.out.println("l = " + l);
-
-        int result = sum + (combinations[l] * number);
-//        System.out.println("sum = " + sum);
-//        System.out.println("combinations[l] : " + combinations[l] + " / number :" + number);
-//        System.out.println("result = " + result);
-
-        if (l == n) {
-            if (result == f) {
-                for (int i = 0; i < n; i++) {
-                    System.out.print(results[i] + " ");
-                }
-                System.out.println(" ");
-            }
+    public void dfs(int l, int sum) {
+        if (flag) {
             return;
         }
 
-        if (result >= f) {
-            return;
+        if (l == n) {
+            if (sum == f) {
+                for (int i : results) {
+                    System.out.print(i + " ");
+                }
+                flag = true;
+            }
         }
 
         for (int i = 1; i <= n; i++) {
@@ -45,12 +39,26 @@ public class SequencePrediction {
 
             checked[i] = 1;
             results[l] = i;
-            if (l < n) {
-                dfs(l + 1, i, result);
-            }
+            dfs(l + 1, sum + (combinations[l] * results[l]));
             checked[i] = 0;
-
         }
+
+    }
+
+    public static void main(String[] args){
+
+        Scanner scanner = new Scanner(System.in);
+        int n=scanner.nextInt();
+        int f=scanner.nextInt();
+        int[] b=new int[n];
+        int[]  p=new int[n];
+        int[] ch=new int[n+1];
+
+        SequencePrediction.Combination combination = new SequencePrediction.Combination(n);
+        int[] combinations = combination.calcCombinations();
+
+        SequencePrediction main = new SequencePrediction(n, f, combinations);
+        main.dfs(0, 0);
     }
 
 
@@ -64,10 +72,10 @@ public class SequencePrediction {
         }
 
         public int[] calcCombinations() {
-            int[] combinations = new int[n + 1];
+            int[] combinations = new int[n];
 
             for (int i = 0; i < n; i++) {
-                combinations[i + 1] = dfs(n - 1, i);
+                combinations[i] = dfs(n - 1, i);
             }
 
             return combinations;
@@ -93,6 +101,4 @@ public class SequencePrediction {
             return sum;
         }
     }
-
-
 }

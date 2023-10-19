@@ -15,7 +15,7 @@ public class SequencePredictionTest {
         int[] combinations = combination.calcCombinations();
 
         SequencePrediction sequencePrediction = new SequencePrediction(n, f, combinations);
-        sequencePrediction.dfs(0, 0, 0);
+        sequencePrediction.dfs(0, 0);
 
         int[] result = new int[]{1, 2, 3};
         Assertions.assertThat(result).containsExactly(1, 2, 3);
