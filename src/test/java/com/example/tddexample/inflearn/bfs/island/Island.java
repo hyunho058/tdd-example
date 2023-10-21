@@ -2,6 +2,7 @@ package com.example.tddexample.inflearn.bfs.island;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class Island {
 
@@ -13,6 +14,22 @@ public class Island {
 
     public Island(int[][] map) {
         this.map = map;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int[][] arr = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                arr[i][j] = scanner.nextInt();
+            }
+        }
+
+        Island T = new Island(arr);
+        int result = T.bfs();
+        System.out.println(result);
     }
 
     public int bfs() {
