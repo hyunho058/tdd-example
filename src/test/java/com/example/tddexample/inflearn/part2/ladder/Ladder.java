@@ -1,71 +1,27 @@
 package com.example.tddexample.inflearn.part2.ladder;
 
-import com.example.tddexample.test.airport.Solution;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Ladder {
     public char[] solution(int n, int[][] ladder) {
-        List<List<Line>> lineInfos = new ArrayList<>();
-
-        //init data
-        for (int i = 0; i < ladder.length; i++) {
-            List<Line> lines = new ArrayList<>();
-            for (int j = 0; j < ladder[i].length; j++) {
-                lines.add(new Line(ladder[i][j]));
-            }
-            lineInfos.add(lines);
+        char[] answer = new char[n];
+        char startAlphabet = 'A';
+        for (int i = 0; i < n; i++) {
+            answer[i] = startAlphabet++;
         }
 
-        char[] answer = new char[n];
-        char alphabet = 'A';
-        for (int i = 1; i <= n; i++) {
-            int position = i;
+        for (int i = 0; i < ladder.length; i++) {
+            for (int j = 0; j < ladder[i].length; j++) {
+                int left = ladder[i][j] - 1;
+                int right = ladder[i][j];
 
-            for (List<Line> LineList : lineInfos) {
-                for (Line line : LineList) {
-                    if (line.getStart() == position) {
-                        position = line.getEnd();
-                        break;
-                    }
-
-                    if (line.getEnd() == position) {
-                        position = line.getStart();
-                        break;
-                    }
-                }
+                char temp = answer[left];
+                answer[left] = answer[right];
+                answer[right] = temp;
             }
-
-            answer[position - 1] = alphabet;
-            alphabet++;
         }
 
         return answer;
-    }
-
-
-    private static class Line {
-        private final int start;
-        private final int end;
-
-        public Line(int start) {
-            this(start, start + 1);
-        }
-
-        public Line(int start, int end) {
-            this.start = start;
-            this.end = end;
-        }
-
-        public int getStart() {
-            return start;
-        }
-
-        public int getEnd() {
-            return end;
-        }
     }
 
     public static void main(String[] args) {
