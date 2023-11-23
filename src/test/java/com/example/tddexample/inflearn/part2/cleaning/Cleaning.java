@@ -18,13 +18,7 @@ public class Cleaning {
             int nextX = positionX + dx[direction % 4];
             int nextY = positionY + dy[direction % 4];
 
-            if (nextY >= board.length || nextY < 0 || nextX >= board[nextY].length || nextX < 0) {
-                time++;
-                direction++;
-                continue;
-            }
-
-            if (board[nextY][nextX] == 1) {
+            if (rotation(nextX, nextY, board)){
                 time++;
                 direction++;
                 continue;
@@ -39,6 +33,18 @@ public class Cleaning {
         }
 
         return answer;
+    }
+
+    private boolean rotation(int x, int y, int[][] board) {
+        if (y >= board.length || y < 0 || x >= board[y].length || x < 0) {
+            return true;
+        }
+
+        if (board[y][x] == 1) {
+            return true;
+        }
+
+        return false;
     }
 
     public static void main(String[] args) {
