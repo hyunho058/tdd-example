@@ -1,4 +1,4 @@
-package com.example.tddexample.inflearn.part2;
+package com.example.tddexample.inflearn.part2.seat;
 
 import java.util.Arrays;
 

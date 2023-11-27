@@ -1,4 +1,4 @@
-package com.example.tddexample.inflearn.part2;
+package com.example.tddexample.inflearn.part2.seat;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
