@@ -37,10 +37,10 @@ public class Election {
             }
         }
 
-        return MaxCandidateProduction(voterMap);
+        return maxCandidateProduction(voterMap);
     }
 
-    private String MaxCandidateProduction(Map<String, Integer> voterMap) {
+    private String maxCandidateProduction(Map<String, Integer> voterMap) {
         int maxCount = Integer.MIN_VALUE;
         String answer = "";
         for (Map.Entry<String, Integer> entity : voterMap.entrySet()) {
