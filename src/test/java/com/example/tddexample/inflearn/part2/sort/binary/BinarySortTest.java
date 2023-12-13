@@ -1,4 +1,4 @@
-package com.example.tddexample.inflearn.part2.sort;
+package com.example.tddexample.inflearn.part2.sort.binary;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

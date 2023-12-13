@@ -1,4 +1,4 @@
-package com.example.tddexample.inflearn.part2.sort;
+package com.example.tddexample.inflearn.part2.sort.binary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
