@@ -7,6 +7,10 @@ public class StringCalculator {
 
     public int addition(String text) {
 
+        if (text == null || text.isEmpty()) {
+            return 0;
+        }
+
         if (includedNegative(text)) {
             throw new RuntimeException("음수는 입력할 수 없습니다.");
         }

@@ -65,4 +65,26 @@ class StringCalculatorTest {
 
         assertThat(result).isEqualTo(6);
     }
+
+    @DisplayName("입력값이 null일 경우 0을 반환한다.")
+    @Test
+    void textIsNull() {
+        String text = null;
+
+        StringCalculator calculator = new StringCalculator();
+        int result = calculator.addition(text);
+
+        assertThat(result).isEqualTo(0);
+    }
+
+    @DisplayName("입력값이 빈 문자열일 경우 0을 반환한다.")
+    @Test
+    void textIsEmpty() {
+        String text = "";
+
+        StringCalculator calculator = new StringCalculator();
+        int result = calculator.addition(text);
+
+        assertThat(result).isEqualTo(0);
+    }
 }
