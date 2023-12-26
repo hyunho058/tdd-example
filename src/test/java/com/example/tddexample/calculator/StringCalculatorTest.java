@@ -12,8 +12,8 @@ import static org.assertj.core.api.Assertions.*;
 class StringCalculatorTest {
     /**
      * 쉼표 콜론을 구분자로 가지는 문자열을 전달하는경우 구분자를 기중으로 분리한 각 숫자의 합을 반환
-     *  커스텀 구분자 //문자열\n  ex) //;\n1;2;3 = 6
-     *  문자열 계산기에 음수를 전달하면 RuntimeException으로 처리
+     * 커스텀 구분자 //문자열\n  ex) //;\n1;2;3 = 6
+     * 문자열 계산기에 음수를 전달하면 RuntimeException으로 처리
      */
 
     @DisplayName("1,2 는 3이다.")
@@ -32,6 +32,16 @@ class StringCalculatorTest {
         int result = calculator.addition("1:2");
 
         assertThat(result).isEqualTo(3);
+    }
+
+    @DisplayName("음수가 포함되어 있으면 RuntimeException을 발생한다.")
+    @Test
+    void includeNegative() {
+        StringCalculator calculator = new StringCalculator();
+
+        assertThatThrownBy(() -> calculator.addition("1,-2"))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("음수는 입력할 수 없습니다.");
     }
 
     @DisplayName("콜론과 쉼표 이외 구분자를 사용 하려면 다음과 같이 작성 한다. //;\n1;2")
