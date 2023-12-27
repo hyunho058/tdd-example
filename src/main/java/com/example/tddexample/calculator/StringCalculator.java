@@ -6,8 +6,7 @@ import java.util.regex.Pattern;
 public class StringCalculator {
 
     public int addition(String text) {
-
-        if (text == null || text.isEmpty()) {
+        if (isBlank(text)) {
             return 0;
         }
 
@@ -15,6 +14,12 @@ public class StringCalculator {
             throw new RuntimeException("음수는 입력할 수 없습니다.");
         }
 
+        String[] operands = split(text);
+
+        return sum(toInt(operands));
+    }
+
+    private String[] split(String text) {
         Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(text);
 
         String separator = ",|:";
@@ -24,19 +29,33 @@ public class StringCalculator {
             text = matcher.group(2);
         }
 
-        String[] operands = text.split(separator);
+        return text.split(separator);
+    }
 
+    private int sum(int[] operands) {
         int sum = 0;
-        for (String operand : operands) {
-            int number = Integer.parseInt(operand);
-
-            sum += number;
+        for (int operand : operands) {
+            sum += operand;
         }
 
         return sum;
     }
 
+    private int[] toInt(String[] operands) {
+        int[] numbers = new int[operands.length];
+        for (int i = 0; i < operands.length; i++) {
+            numbers[i] = Integer.parseInt(operands[i]);
+        }
+
+        return numbers;
+    }
+
+    private boolean isBlank(String text) {
+        return text == null || text.isEmpty();
+    }
+
     private boolean includedNegative(String text) {
         return text.contains("-");
     }
+
 }
