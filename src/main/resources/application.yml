@@ -12,6 +12,14 @@ spring:
     hibernate:
       ddl-auto: none
 
+  kafka:
+    bootstrap-servers: host.docker.internal:9092
+    consumer:
+#      group-id: my-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
 ---
 spring:
   config:
@@ -38,13 +46,21 @@ spring:
       enabled: true
 
   kafka:
+    bootstrap-servers: host.docker.internal:9092
     consumer:
-      enable-auto-commit: false # 수동 커밋 설정
-      bootstrap-servers: localhost:9092  # Kafka 서버 주소
-      group-id: group_id                # Consumer 그룹 ID
-      auto-offset-reset: earliest       # Offset 리셋 정책
+#      group-id: my-consumer-group
+      auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+#    bootstrap-servers: localhost:9092  # Kafka 서버 주소
+#    consumer:
+#      max-poll-records: 5
+#      enable-auto-commit: false # 수동 커밋 설정
+#      group-id: product_group                # Consumer 그룹 ID
+#      auto-offset-reset: earliest       # Offset 리셋 정책
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 ---
 spring:
@@ -65,10 +81,11 @@ spring:
       mode: never
 
   kafka:
-    consumer:
-      enable-auto-commit: false # 수동 커밋 설정
-      bootstrap-servers: localhost:9092  # Kafka 서버 주소
-      group-id: group_id                # Consumer 그룹 ID
-      auto-offset-reset: earliest       # Offset 리셋 정책
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    bootstrap-servers: localhost:9092  # Kafka 서버 주소
+#    consumer:
+#      max-poll-records: 5
+#      enable-auto-commit: false # 수동 커밋 설정
+#      group-id: product_group                # Consumer 그룹 ID
+#      auto-offset-reset: earliest       # Offset 리셋 정책
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
