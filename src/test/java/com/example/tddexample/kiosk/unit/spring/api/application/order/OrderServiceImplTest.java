@@ -24,9 +24,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
 @Transactional
-class OrderServiceTest extends IntegrationTestSupport {
+class OrderServiceImplTest extends IntegrationTestSupport {
     @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderServiceImpl;
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -55,7 +55,7 @@ class OrderServiceTest extends IntegrationTestSupport {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "002"));
         LocalDateTime nowDateTine = LocalDateTime.now();
         //when
-        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
+        OrderResponse orderResponse = orderServiceImpl.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -82,7 +82,7 @@ class OrderServiceTest extends IntegrationTestSupport {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001"));
         LocalDateTime nowDateTine = LocalDateTime.now();
         //when
-        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
+        OrderResponse orderResponse = orderServiceImpl.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -115,7 +115,7 @@ class OrderServiceTest extends IntegrationTestSupport {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
 
         //when
-        OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), nowDateTine);
+        OrderResponse orderResponse = orderServiceImpl.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
         assertThat(orderResponse.getId()).isNotNull();
@@ -158,7 +158,7 @@ class OrderServiceTest extends IntegrationTestSupport {
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
 
         //when //then
-        assertThatThrownBy(() -> orderService.createOrder(request.toServiceRequest(), nowDateTine))
+        assertThatThrownBy(() -> orderServiceImpl.createOrder(request.toServiceRequest(), nowDateTine))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("주문한 수량보다 재고가 적습니다.");
     }

@@ -1,7 +1,6 @@
 package com.example.tddexample.kiosk.unit.spring.api.presentation.product;
 
 import com.example.tddexample.kiosk.unit.spring.ControllerTestSupport;
-import com.example.tddexample.kiosk.unit.spring.api.application.product.dto.ProductCreateServiceRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
@@ -148,7 +147,7 @@ class ProductControllerTest extends ControllerTestSupport {
     void getSellingProducts() throws Exception {
         //given
         List<ProductResponse> result = List.of();
-        Mockito.when(productService.getSellingProducts()).thenReturn(result);
+        Mockito.when(productServiceImpl.getSellingProducts()).thenReturn(result);
         //when
         //then
         mockMvc.perform(
@@ -166,7 +165,7 @@ class ProductControllerTest extends ControllerTestSupport {
     void getProduct() throws Exception {
         //given
         Long id = 1L;
-        given(productService.getProduct(any(Long.class)))
+        given(productServiceImpl.getProduct(any(Long.class)))
                 .willReturn(new ProductResponse(
                         1L,
                         "001",

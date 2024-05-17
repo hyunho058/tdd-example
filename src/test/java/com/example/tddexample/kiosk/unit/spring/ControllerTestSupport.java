@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.order.OrderService;
-import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductService;
+import com.example.tddexample.kiosk.unit.spring.api.application.order.OrderServiceImpl;
+import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductServiceImpl;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.OrderController;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.ProductController;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,8 +22,8 @@ public abstract class ControllerTestSupport {
     protected ObjectMapper objectMapper;
 
     @MockBean
-    protected ProductService productService;
+    protected ProductServiceImpl productServiceImpl;
 
     @MockBean
-    protected OrderService orderService;
+    protected OrderServiceImpl orderServiceImpl;
 }
