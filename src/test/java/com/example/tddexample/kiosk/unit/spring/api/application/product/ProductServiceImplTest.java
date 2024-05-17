@@ -18,9 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
 @Transactional
-class ProductServiceTest extends IntegrationTestSupport {
+class ProductServiceImplTest extends IntegrationTestSupport {
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productServiceImpl;
     @Autowired
     private ProductRepository productRepository;
 
@@ -44,7 +44,7 @@ class ProductServiceTest extends IntegrationTestSupport {
                 5000
             );
         //when
-        ProductResponse productResponse = productService.createProduct(request.toServiceRequest());
+        ProductResponse productResponse = productServiceImpl.createProduct(request.toServiceRequest());
 
         //then
         assertThat(productResponse)
@@ -72,7 +72,7 @@ class ProductServiceTest extends IntegrationTestSupport {
                 5000
             );
         //when
-        ProductResponse productResponse = productService.createProduct(request.toServiceRequest());
+        ProductResponse productResponse = productServiceImpl.createProduct(request.toServiceRequest());
 
         //then
         assertThat(productResponse)
@@ -102,7 +102,7 @@ class ProductServiceTest extends IntegrationTestSupport {
         Long savedProductId = savedProduct.getId();
 
         //when
-        ProductResponse retrievedProduct = productService.getProduct(savedProductId);
+        ProductResponse retrievedProduct = productServiceImpl.getProduct(savedProductId);
 
         //then
         assertThat(retrievedProduct)

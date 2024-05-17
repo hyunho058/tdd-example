@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/api/vi/products/selling")
-    public ApiResponse<List<ProductResponse>> getSellingProducts(){
+    public ApiResponse<List<ProductResponse>> getSellingProducts() {
         return new ApiResponse<>(
                 HttpStatus.OK,
                 productService.getSellingProducts()
@@ -36,7 +36,7 @@ public class ProductController {
     }
 
     @GetMapping("/api/vi/products/{id}")
-    public ApiResponse<ProductResponse> getProduct(@PathVariable Long id){
+    public ApiResponse<ProductResponse> getProduct(@PathVariable Long id) {
         return new ApiResponse<>(
                 HttpStatus.OK,
                 productService.getProduct(id)

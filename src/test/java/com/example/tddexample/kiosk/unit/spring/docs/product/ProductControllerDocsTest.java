@@ -1,6 +1,6 @@
 package com.example.tddexample.kiosk.unit.spring.docs.product;
 
-import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductService;
+import com.example.tddexample.kiosk.unit.spring.api.application.product.ProductServiceImpl;
 import com.example.tddexample.kiosk.unit.spring.api.application.product.dto.ProductCreateServiceRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.ProductController;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
@@ -35,11 +35,11 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 
 public class ProductControllerDocsTest extends RestDocsSupport {
 
-    private final ProductService productService = mock(ProductService.class);
+    private final ProductServiceImpl productServiceImpl = mock(ProductServiceImpl.class);
 
     @Override
     protected Object initController() {
-        return new ProductController(productService);
+        return new ProductController(productServiceImpl);
     }
 
     @DisplayName("신규 상품을 등록하는 API")
@@ -53,7 +53,7 @@ public class ProductControllerDocsTest extends RestDocsSupport {
                         5000
                 );
 
-        given(productService.createProduct(any(ProductCreateServiceRequest.class)))
+        given(productServiceImpl.createProduct(any(ProductCreateServiceRequest.class)))
                 .willReturn(new ProductResponse(
                         1L,
                         "001",
@@ -113,9 +113,9 @@ public class ProductControllerDocsTest extends RestDocsSupport {
     @Test
     void getSellingProducts() throws Exception {
         List<ProductResponse> result = List.of();
-        Mockito.when(productService.getSellingProducts()).thenReturn(result);
+        Mockito.when(productServiceImpl.getSellingProducts()).thenReturn(result);
 
-        given(productService.getSellingProducts())
+        given(productServiceImpl.getSellingProducts())
                 .willReturn(List.of(
                         new ProductResponse(
                                 1L,
@@ -166,7 +166,7 @@ public class ProductControllerDocsTest extends RestDocsSupport {
     void getProduct() throws Exception {
         //given
         Long id = 1L;
-        given(productService.getProduct(any(Long.class)))
+        given(productServiceImpl.getProduct(any(Long.class)))
                 .willReturn(new ProductResponse(
                         1L,
                         "001",
