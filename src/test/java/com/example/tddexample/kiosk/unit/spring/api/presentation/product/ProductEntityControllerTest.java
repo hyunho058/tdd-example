@@ -18,7 +18,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
-class ProductControllerTest extends ControllerTestSupport {
+class ProductEntityControllerTest extends ControllerTestSupport {
 
     @DisplayName("신규 상품을 등록한다.")
     @Test

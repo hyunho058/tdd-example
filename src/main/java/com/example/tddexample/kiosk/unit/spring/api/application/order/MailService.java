@@ -1,28 +1,27 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
 import com.example.tddexample.kiosk.unit.spring.client.mail.MailSendClient;
-import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistory;
-import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryRepository;
+import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryEntity;
+import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class MailService { ///mail send and history save service
+public class MailService implements MessageSender { ///mail send and history save service
 
     private final MailSendClient mailSendClient;
-    private final MailSendHistoryRepository mailSendHistoryRepository;
+    private final MailSendHistoryJpaRepository mailSendHistoryJpaRepository;
 
-    public boolean send(String fromEmail,
-                        String toEmail,
+    public boolean send(String from,
+                        String to,
                         String subject,
                         String content) {
 
-        boolean result = mailSendClient.send(fromEmail, toEmail, subject, content);
+        boolean result = mailSendClient.send(from, to, subject, content);
 
         if (result) {
-            mailSendHistoryRepository.save(new MailSendHistory(fromEmail, toEmail, subject, content));
+            mailSendHistoryJpaRepository.save(new MailSendHistoryEntity(from, to, subject, content));
             return true;
         }
         return false;

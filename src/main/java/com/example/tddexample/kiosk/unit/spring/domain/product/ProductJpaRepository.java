@@ -6,10 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findAllBySellingStatusIn(List<ProductSellingStatus> sellingTypes);
-    List<Product> findAllByProductNumberIn(List<String> productNumbers);
+public interface ProductJpaRepository extends JpaRepository<ProductEntity, Long> {
+    List<ProductEntity> findAllBySellingStatusIn(List<ProductSellingStatus> sellingTypes);
+    List<ProductEntity> findAllByProductNumberIn(List<String> productNumbers);
 
     @Query(value = "select p.product_number from product p order by id desc limit 1", nativeQuery = true)
     String findLatestProduct();

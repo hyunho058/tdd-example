@@ -3,13 +3,13 @@ package com.example.tddexample.kiosk.unit.spring.api.application.order;
 import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.request.OrderCreateRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;
-import com.example.tddexample.kiosk.unit.spring.domain.order.OrderRepository;
-import com.example.tddexample.kiosk.unit.spring.domain.orderproduct.OrderProductRepository;
-import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductRepository;
+import com.example.tddexample.kiosk.unit.spring.domain.order.OrderJpaRepository;
+import com.example.tddexample.kiosk.unit.spring.domain.orderproduct.OrderProductJpaRepository;
+import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.domain.product.ProductJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
-import com.example.tddexample.kiosk.unit.spring.domain.stock.Stock;
+import com.example.tddexample.kiosk.unit.spring.domain.stock.StockEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.stock.StockRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,15 +24,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
 @Transactional
-class OrderServiceImplTest extends IntegrationTestSupport {
+class OrderEntityServiceImplTest extends IntegrationTestSupport {
     @Autowired
     private OrderServiceImpl orderServiceImpl;
     @Autowired
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJPARepository;
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderJpaRepository orderJpaRepository;
     @Autowired
-    private OrderProductRepository orderProductRepository;
+    private OrderProductJpaRepository orderProductJpaRepository;
     @Autowired
     private StockRepository stockRepository;
 
@@ -47,10 +47,10 @@ class OrderServiceImplTest extends IntegrationTestSupport {
     @Test
     void createOrder() {
         //given
-        Product product1 = createProduct("001", ProductType.HANDMADE, 4000);
-        Product product2 = createProduct("002", ProductType.HANDMADE, 4500);
-        Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
-        productRepository.saveAll(List.of(product1, product2, product3));
+        ProductEntity product1 = createProduct("001", ProductType.HANDMADE, 4000);
+        ProductEntity product2 = createProduct("002", ProductType.HANDMADE, 4500);
+        ProductEntity product3 = createProduct("003", ProductType.HANDMADE, 5000);
+        productJPARepository.saveAll(List.of(product1, product2, product3));
 
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "002"));
         LocalDateTime nowDateTine = LocalDateTime.now();
@@ -74,10 +74,10 @@ class OrderServiceImplTest extends IntegrationTestSupport {
     @Test
     void createOrderWithDuplicateProductNumber() {
         //given
-        Product product1 = createProduct("001", ProductType.HANDMADE, 4000);
-        Product product2 = createProduct("002", ProductType.HANDMADE, 4500);
-        Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
-        productRepository.saveAll(List.of(product1, product2, product3));
+        ProductEntity product1 = createProduct("001", ProductType.HANDMADE, 4000);
+        ProductEntity product2 = createProduct("002", ProductType.HANDMADE, 4500);
+        ProductEntity product3 = createProduct("003", ProductType.HANDMADE, 5000);
+        productJPARepository.saveAll(List.of(product1, product2, product3));
 
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001"));
         LocalDateTime nowDateTine = LocalDateTime.now();
@@ -103,13 +103,13 @@ class OrderServiceImplTest extends IntegrationTestSupport {
         //given
         LocalDateTime nowDateTine = LocalDateTime.now();
 
-        Product product1 = createProduct("001", ProductType.BOTTLE, 4000);
-        Product product2 = createProduct("002", ProductType.BAKERY, 4500);
-        Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
-        productRepository.saveAll(List.of(product1, product2, product3));
+        ProductEntity product1 = createProduct("001", ProductType.BOTTLE, 4000);
+        ProductEntity product2 = createProduct("002", ProductType.BAKERY, 4500);
+        ProductEntity product3 = createProduct("003", ProductType.HANDMADE, 5000);
+        productJPARepository.saveAll(List.of(product1, product2, product3));
 
-        Stock stock1 = new Stock("001", 2);
-        Stock stock2 = new Stock("002", 2);
+        StockEntity stock1 = new StockEntity("001", 2);
+        StockEntity stock2 = new StockEntity("002", 2);
         stockRepository.saveAll(List.of(stock1, stock2));
 
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
@@ -131,7 +131,7 @@ class OrderServiceImplTest extends IntegrationTestSupport {
                         tuple("003", 5000)
                 );
 
-        List<Stock> stocks = stockRepository.findAll();
+        List<StockEntity> stocks = stockRepository.findAll();
         assertThat(stocks).hasSize(2)
                 .extracting("productNumber", "quantity")
                 .containsExactlyInAnyOrder(
@@ -146,13 +146,13 @@ class OrderServiceImplTest extends IntegrationTestSupport {
         //given
         LocalDateTime nowDateTine = LocalDateTime.now();
 
-        Product product1 = createProduct("001", ProductType.BOTTLE, 4000);
-        Product product2 = createProduct("002", ProductType.BAKERY, 4500);
-        Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
-        productRepository.saveAll(List.of(product1, product2, product3));
+        ProductEntity product1 = createProduct("001", ProductType.BOTTLE, 4000);
+        ProductEntity product2 = createProduct("002", ProductType.BAKERY, 4500);
+        ProductEntity product3 = createProduct("003", ProductType.HANDMADE, 5000);
+        productJPARepository.saveAll(List.of(product1, product2, product3));
 
-        Stock stock1 = new Stock("001", 1);
-        Stock stock2 = new Stock("002", 1);
+        StockEntity stock1 = new StockEntity("001", 1);
+        StockEntity stock2 = new StockEntity("002", 1);
         stockRepository.saveAll(List.of(stock1, stock2));
 
         OrderCreateRequest request = new OrderCreateRequest(List.of("001", "001", "002", "003"));
@@ -163,8 +163,8 @@ class OrderServiceImplTest extends IntegrationTestSupport {
                 .hasMessage("주문한 수량보다 재고가 적습니다.");
     }
 
-    private Product createProduct(String productNumber, ProductType type, int price) {
-        return new Product(
+    private ProductEntity createProduct(String productNumber, ProductType type, int price) {
+        return new ProductEntity(
             productNumber,
             type,
             ProductSellingStatus.SELLING,

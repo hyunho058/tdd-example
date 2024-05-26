@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProductTest {
+class ProductEntityTest {
     @Test
     void testCase1() {
         int[] weights = {2, 5, 3, 4, 2, 3};

@@ -2,8 +2,8 @@ package com.example.tddexample.kiosk.unit.spring.api.application.product;
 
 import com.example.tddexample.kiosk.unit.spring.api.application.product.dto.ProductCreateServiceRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
-import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductRepository;
+import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.domain.product.ProductJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final ProductRepository productRepository;
-    private final ProductNumberFactory productNumberFactory;
+    private final ProductJpaRepository productJPARepository;
+    private final ProductNumberFactoryImpl productNumberFactoryImpl;
+
 
     @Override
     public List<ProductResponse> getSellingProducts() {
-        List<Product> products = productRepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
+        List<ProductEntity> products = productJPARepository.findAllBySellingStatusIn(ProductSellingStatus.forDisplay());
 
         return products.stream()
                 .map(ProductResponse::new)
@@ -31,17 +32,18 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public ProductResponse createProduct(ProductCreateServiceRequest request) {
-        String nextProductNumber = productNumberFactory.createProductNumber();
+        String nextProductNumber = productNumberFactoryImpl.createProductNumber();
 
-        Product newProduct = request.toEntity(nextProductNumber);
-        Product savedProduct = productRepository.save(newProduct);
+
+        ProductEntity newProduct = request.toEntity(nextProductNumber);
+        ProductEntity savedProduct = productJPARepository.save(newProduct);
 
         return new ProductResponse(savedProduct);
     }
 
     @Override
     public ProductResponse getProduct(Long id) {
-        Product product = productRepository.findById(id)
+        ProductEntity product = productJPARepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("NOT FOUND"));
 
         return new ProductResponse(product);

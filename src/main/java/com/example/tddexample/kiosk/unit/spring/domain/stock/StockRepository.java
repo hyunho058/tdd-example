@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StockRepository extends JpaRepository<Stock, Long> {
-    List<Stock> findAllByProductNumberIn(List<String> ProductNumbers);
+public interface StockRepository extends JpaRepository<StockEntity, Long> {
+    List<StockEntity> findAllByProductNumberIn(List<String> ProductNumbers);
 }

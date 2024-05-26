@@ -3,8 +3,8 @@ package com.example.tddexample.kiosk.unit.spring.api.application.product;
 import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.request.ProductCreateRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
-import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductRepository;
+import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.domain.product.ProductJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import org.junit.jupiter.api.DisplayName;
@@ -18,23 +18,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
 @Transactional
-class ProductServiceImplTest extends IntegrationTestSupport {
+class ProductEntityServiceImplTest extends IntegrationTestSupport {
     @Autowired
     private ProductServiceImpl productServiceImpl;
     @Autowired
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJPARepository;
 
     @DisplayName("가장 최근 등록된 상품 번호에 1증가된 상품번호로 신규 상품을 등록한다.")
     @Test
     void createProduct() {
         //given
-        Product product = new Product(
+        ProductEntity product = new ProductEntity(
             "001",
             ProductType.HANDMADE,
             ProductSellingStatus.SELLING,
             "아메리카노",
             4000);
-        productRepository.save(product);
+        productJPARepository.save(product);
 
         ProductCreateRequest request =
             new ProductCreateRequest(
@@ -51,7 +51,7 @@ class ProductServiceImplTest extends IntegrationTestSupport {
             .extracting("productNumber", "type", "sellingStatus", "name", "price")
             .contains("002", ProductType.HANDMADE, ProductSellingStatus.SELLING, "카푸치노", 5000);
 
-        List<Product> products = productRepository.findAll();
+        List<ProductEntity> products = productJPARepository.findAll();
         assertThat(products).hasSize(2)
             .extracting("productNumber", "type", "sellingStatus", "name", "price")
             .containsExactlyInAnyOrder(
@@ -79,7 +79,7 @@ class ProductServiceImplTest extends IntegrationTestSupport {
             .extracting("productNumber", "type", "sellingStatus", "name", "price")
             .contains("001", ProductType.HANDMADE, ProductSellingStatus.SELLING, "카푸치노", 5000);
 
-        List<Product> products = productRepository.findAll();
+        List<ProductEntity> products = productJPARepository.findAll();
         assertThat(products).hasSize(1)
             .extracting("productNumber", "type", "sellingStatus", "name", "price")
             .containsExactlyInAnyOrder(
@@ -91,13 +91,13 @@ class ProductServiceImplTest extends IntegrationTestSupport {
     @Test
     void getProduct() {
         //given
-        Product newProduct = new Product(
+        ProductEntity newProduct = new ProductEntity(
                 "001",
                 ProductType.HANDMADE,
                 ProductSellingStatus.SELLING,
                 "아메리카노",
                 4000);
-        Product savedProduct = productRepository.save(newProduct);
+        ProductEntity savedProduct = productJPARepository.save(newProduct);
 
         Long savedProductId = savedProduct.getId();
 
