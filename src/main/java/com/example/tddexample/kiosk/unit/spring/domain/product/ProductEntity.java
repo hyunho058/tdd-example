@@ -1,17 +1,33 @@
 package com.example.tddexample.kiosk.unit.spring.domain.product;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.example.tddexample.kiosk.unit.spring.domain.BaseEntity;
+import jakarta.persistence.*;
+import lombok.Getter;
 
-public class Product {
+@Getter
+@Table(name = "product")
+@Entity
+public class ProductEntity extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String productNumber;
+
+    @Enumerated(EnumType.STRING)
     private ProductType type;
+
+    @Enumerated(EnumType.STRING)
     private ProductSellingStatus sellingStatus;
+
     private String name;
+
     private int price;
 
-    public Product(String productNumber,
+    protected ProductEntity() {
+    }
+
+    public ProductEntity(String productNumber,
                          ProductType type,
                          ProductSellingStatus sellingStatus,
                          String name,

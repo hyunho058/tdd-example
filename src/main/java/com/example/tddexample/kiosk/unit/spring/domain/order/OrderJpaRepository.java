@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("select o from Order o where o.registeredDateTime >= :startDateTime" +
+public interface OrderJpaRepository extends JpaRepository<OrderEntity, Long> {
+    @Query("select o from OrderEntity o where o.registeredDateTime >= :startDateTime" +
             " and o.registeredDateTime < :endDateTime" +
             " and o.orderStatus = :status")
-    List<Order> findOrdersBy(
+    List<OrderEntity> findOrdersBy(
             LocalDateTime startDateTime,
             LocalDateTime endDateTime,
             OrderStatus status

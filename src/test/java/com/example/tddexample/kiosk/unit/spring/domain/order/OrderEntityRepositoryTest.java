@@ -11,9 +11,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-class OrderRepositoryTest extends IntegrationTestSupport {
+class OrderEntityRepositoryTest extends IntegrationTestSupport {
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderJpaRepository orderJpaRepository;
 
     @DisplayName("주문 상태가 결제 완료와 선택한 날짜에 포함된 주문 목록을 가져온다.")
     @Test
@@ -22,29 +22,29 @@ class OrderRepositoryTest extends IntegrationTestSupport {
         LocalDateTime startDateTime  = LocalDateTime.of(2023, 1, 20, 9, 0, 0);
         LocalDateTime endDateTime  = LocalDateTime.of(2023, 2, 20, 0, 0, 0);
         LocalDateTime selectedIncludeData = LocalDateTime.of(2023, 1, 20, 10, 0, 0);
-        Order order1 = new Order(
+        OrderEntity order1 = new OrderEntity(
                 OrderStatus.PAYMENT_COMPLETED,
                 10000,
                 selectedIncludeData,
                 null
         );
-        Order order2 = new Order(
+        OrderEntity order2 = new OrderEntity(
                 OrderStatus.CANCELED,
                 12000,
                 LocalDateTime.of(2023, 1, 21, 10, 0, 0),
                 null
         );
-        Order order3 = new Order(
+        OrderEntity order3 = new OrderEntity(
                 OrderStatus.PAYMENT_COMPLETED,
                 15000,
                 LocalDateTime.of(2023, 2, 20, 10, 0, 0),
                 null
         );
 
-        orderRepository.saveAll(List.of(order1,order2, order3));
+        orderJpaRepository.saveAll(List.of(order1,order2, order3));
 
         //when
-        List<Order> orders = orderRepository.findOrdersBy(
+        List<OrderEntity> orders = orderJpaRepository.findOrdersBy(
                 startDateTime,
                 endDateTime,
                 OrderStatus.PAYMENT_COMPLETED

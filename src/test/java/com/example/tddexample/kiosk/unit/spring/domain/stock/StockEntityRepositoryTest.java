@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 @Transactional
-class StockRepositoryTest extends IntegrationTestSupport {
+class StockEntityRepositoryTest extends IntegrationTestSupport {
     @Autowired
     private StockRepository stockRepository;
 
@@ -20,13 +20,13 @@ class StockRepositoryTest extends IntegrationTestSupport {
     @Test
     void findAllByProductNumberIn() {
         //given
-        Stock stock1 = new Stock("001", 2);
-        Stock stock2 = new Stock("002", 10);
-        Stock stock3 = new Stock("003", 20);
+        StockEntity stock1 = new StockEntity("001", 2);
+        StockEntity stock2 = new StockEntity("002", 10);
+        StockEntity stock3 = new StockEntity("003", 20);
 
         stockRepository.saveAll(List.of(stock1, stock2, stock3));
         //when
-        List<Stock> stocks = stockRepository.findAllByProductNumberIn(List.of("001", "002"));
+        List<StockEntity> stocks = stockRepository.findAllByProductNumberIn(List.of("001", "002"));
 
         //then
         assertThat(stocks).hasSize(2)

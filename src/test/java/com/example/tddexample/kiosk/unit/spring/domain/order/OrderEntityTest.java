@@ -1,6 +1,6 @@
 package com.example.tddexample.kiosk.unit.spring.domain.order;
 
-import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
+import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import org.junit.jupiter.api.DisplayName;
@@ -11,17 +11,17 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OrderTest {
+class OrderEntityTest {
     @DisplayName("주문 생성 시 상품 리스트에서 주문의총 금액을 계산한다,")
     @Test
     void calculatorTotalPrice() {
         //given
-        List<Product> products = List.of(
+        List<ProductEntity> products = List.of(
             createProduct("001", 4000),
             createProduct("002", 3500)
         );
         //when
-        Order order = new Order(products, LocalDateTime.now());
+        OrderEntity order = new OrderEntity(products, LocalDateTime.now());
 
         //then
         assertThat(order.getTotalPrice()).isEqualTo(7500);
@@ -31,14 +31,14 @@ class OrderTest {
     @Test
     void init() {
         //given
-        List<Product> products = List.of(
+        List<ProductEntity> products = List.of(
             createProduct("001", 4000),
             createProduct("002", 3500)
         );
 
         LocalDateTime registeredDateTime = LocalDateTime.now();
         //when
-        Order order = new Order(products, registeredDateTime);
+        OrderEntity order = new OrderEntity(products, registeredDateTime);
 
         //then
         assertThat(order.getOrderStatus()).isEqualByComparingTo(OrderStatus.INIT);
@@ -50,19 +50,19 @@ class OrderTest {
         //given
         LocalDateTime registeredDateTime = LocalDateTime.now();
 
-        List<Product> products = List.of(
+        List<ProductEntity> products = List.of(
             createProduct("001", 4000),
             createProduct("002", 3500)
         );
         //when
-        Order order = new Order(products, registeredDateTime);
+        OrderEntity order = new OrderEntity(products, registeredDateTime);
 
         //then
         assertThat(order.getRegisteredDateTime()).isEqualTo(registeredDateTime);
     }
 
-    private Product createProduct(String productNumber, int price) {
-        return new Product(
+    private ProductEntity createProduct(String productNumber, int price) {
+        return new ProductEntity(
             productNumber,
             ProductType.HANDMADE,
             ProductSellingStatus.SELLING,

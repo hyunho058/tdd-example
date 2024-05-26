@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class OrderControllerTest extends ControllerTestSupport {
+class OrderEntityControllerTest extends ControllerTestSupport {
 
     @DisplayName("주문을 등록한다.")
     @Test

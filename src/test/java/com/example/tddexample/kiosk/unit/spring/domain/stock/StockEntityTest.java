@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class StockTest {
+class StockEntityTest {
     @DisplayName("재고가 2개이고 주문 수량이 2이면 재고는 0이다.")
     @Test
     void reduceStockQuantity() {
         //given
-        Stock stock = new Stock("001", 2);
+        StockEntity stock = new StockEntity("001", 2);
         int orderQuantity = 2;
 
         //when
@@ -25,7 +25,7 @@ class StockTest {
     @Test
     void reduceStockWithZeroQuantity() {
         //given
-        Stock stock = new Stock("001", 0);
+        StockEntity stock = new StockEntity("001", 0);
         int orderQuantity = 1;
 
         //when
@@ -38,7 +38,7 @@ class StockTest {
     @Test
     void reduceStockWithInsufficientQuantity() {
         //given
-        Stock stock = new Stock("001", 1);
+        StockEntity stock = new StockEntity("001", 1);
         int orderQuantity = 2;
 
         //when

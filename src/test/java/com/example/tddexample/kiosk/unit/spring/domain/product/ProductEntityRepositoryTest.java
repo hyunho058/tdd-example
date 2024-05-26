@@ -15,38 +15,38 @@ import static org.assertj.core.api.Assertions.tuple;
 //@SpringBootTest
 //@DataJpaTest //@SpringBootTest 보다 가볍다,
 @Transactional
-class ProductRepositoryTest extends IntegrationTestSupport {
+class ProductEntityRepositoryTest extends IntegrationTestSupport {
     @Autowired
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJPARepository;
 
     @DisplayName("원하는 판매상태를 가진 상품을 조회한다.")
     @Test
     void findAllBySellingStatusIn() {
         //given
-        Product product1 = new Product(
+        ProductEntity product1 = new ProductEntity(
             "001",
             ProductType.HANDMADE,
             ProductSellingStatus.SELLING,
             "아메리카노",
             4000);
-        Product product2 = new Product(
+        ProductEntity product2 = new ProductEntity(
             "002",
             ProductType.HANDMADE,
             ProductSellingStatus.HOLD,
             "카페라뗴",
             4500);
-        Product product3 = new Product(
+        ProductEntity product3 = new ProductEntity(
             "003",
             ProductType.HANDMADE,
             ProductSellingStatus.STOP_SELLING,
             "빙수",
             6000);
 
-        productRepository.saveAll(List.of(product1, product2, product3));
+        productJPARepository.saveAll(List.of(product1, product2, product3));
 
         //when
-        List<Product> products =
-            productRepository.findAllBySellingStatusIn(List.of(ProductSellingStatus.SELLING, ProductSellingStatus.HOLD));
+        List<ProductEntity> products =
+            productJPARepository.findAllBySellingStatusIn(List.of(ProductSellingStatus.SELLING, ProductSellingStatus.HOLD));
 
         //then
         assertThat(products).hasSize(2)
@@ -61,30 +61,30 @@ class ProductRepositoryTest extends IntegrationTestSupport {
     @Test
     void findAllByProductNumberIn() {
         //given
-        Product product1 = new Product(
+        ProductEntity product1 = new ProductEntity(
             "001",
             ProductType.HANDMADE,
             ProductSellingStatus.SELLING,
             "아메리카노",
             4000);
-        Product product2 = new Product(
+        ProductEntity product2 = new ProductEntity(
             "002",
             ProductType.HANDMADE,
             ProductSellingStatus.HOLD,
             "카페라뗴",
             4500);
-        Product product3 = new Product(
+        ProductEntity product3 = new ProductEntity(
             "003",
             ProductType.HANDMADE,
             ProductSellingStatus.STOP_SELLING,
             "빙수",
             6000);
 
-        productRepository.saveAll(List.of(product1, product2, product3));
+        productJPARepository.saveAll(List.of(product1, product2, product3));
 
         //when
-        List<Product> products =
-            productRepository.findAllByProductNumberIn(List.of("001", "002"));
+        List<ProductEntity> products =
+            productJPARepository.findAllByProductNumberIn(List.of("001", "002"));
 
         //then
         assertThat(products).hasSize(2)
@@ -100,29 +100,29 @@ class ProductRepositoryTest extends IntegrationTestSupport {
     void findLatestProductNumber() {
         //given
         String targetProductNumber = "003";
-        Product product1 = new Product(
+        ProductEntity product1 = new ProductEntity(
             "001",
             ProductType.HANDMADE,
             ProductSellingStatus.SELLING,
             "아메리카노",
             4000);
-        Product product2 = new Product(
+        ProductEntity product2 = new ProductEntity(
             "002",
             ProductType.HANDMADE,
             ProductSellingStatus.HOLD,
             "카페라뗴",
             4500);
-        Product product3 = new Product(
+        ProductEntity product3 = new ProductEntity(
             targetProductNumber,
             ProductType.HANDMADE,
             ProductSellingStatus.STOP_SELLING,
             "빙수",
             6000);
 
-        productRepository.saveAll(List.of(product1, product2, product3));
+        productJPARepository.saveAll(List.of(product1, product2, product3));
 
         //when
-        String latestProductNumber = productRepository.findLatestProduct();
+        String latestProductNumber = productJPARepository.findLatestProduct();
 
         //then
         assertThat(latestProductNumber).isEqualTo(targetProductNumber);
@@ -132,7 +132,7 @@ class ProductRepositoryTest extends IntegrationTestSupport {
     @Test
     void findLatestProductNumberWhenProductIsEmpty() {
         //when
-        String latestProductNumber = productRepository.findLatestProduct();
+        String latestProductNumber = productJPARepository.findLatestProduct();
 
         //then
         assertThat(latestProductNumber).isNull();

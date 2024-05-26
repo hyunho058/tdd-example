@@ -33,7 +33,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 
-public class ProductControllerDocsTest extends RestDocsSupport {
+public class ProductEntityControllerDocsTest extends RestDocsSupport {
 
     private final ProductServiceImpl productServiceImpl = mock(ProductServiceImpl.class);
 

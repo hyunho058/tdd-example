@@ -8,15 +8,15 @@ import java.util.stream.Collectors;
 
 @Getter
 public class Products {
-    private final List<Product> products;
+    private final List<ProductEntity> products;
 
-    public Products(List<Product> products) {
+    public Products(List<ProductEntity> products) {
         this.products = products;
     }
 
-    public List<Product> productsWithDuplicates(List<String> productNumbers) {
-        Map<String, Product> productMap = products.stream()
-                .collect(Collectors.toMap(Product::getProductNumber, p -> p));
+    public List<ProductEntity> productsWithDuplicates(List<String> productNumbers) {
+        Map<String, ProductEntity> productMap = products.stream()
+                .collect(Collectors.toMap(ProductEntity::getProductNumber, p -> p));
 
         return productNumbers.stream()
                 .map(productMap::get).collect(Collectors.toList());
@@ -25,7 +25,7 @@ public class Products {
     public List<String> containProductNumberType() {
         return products.stream()
                 .filter(product -> ProductType.containsStockType(product.getType()))
-                .map(Product::getProductNumber)
+                .map(ProductEntity::getProductNumber)
                 .collect(Collectors.toList());
     }
 
