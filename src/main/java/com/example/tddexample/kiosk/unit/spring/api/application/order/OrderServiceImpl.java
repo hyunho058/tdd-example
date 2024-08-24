@@ -1,11 +1,12 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
 import com.example.tddexample.kiosk.unit.spring.api.application.order.dto.OrderCreateServiceRequest;
+import com.example.tddexample.kiosk.unit.spring.api.application.order.port.OrderRepository;
+import com.example.tddexample.kiosk.unit.spring.api.application.product.port.ProductRepository;
+import com.example.tddexample.kiosk.unit.spring.api.presentation.order.OrderService;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;
-import com.example.tddexample.kiosk.unit.spring.domain.order.OrderEntity;
-import com.example.tddexample.kiosk.unit.spring.domain.order.OrderJpaRepository;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductJpaRepository;
+import com.example.tddexample.kiosk.unit.spring.domain.order.Order;
+import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import com.example.tddexample.kiosk.unit.spring.domain.product.Products;
 import com.example.tddexample.kiosk.unit.spring.domain.stock.StockEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.stock.StockRepository;
@@ -21,16 +22,16 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class OrderServiceImpl implements OrderService{
-    private final OrderJpaRepository orderJpaRepository;
-    private final ProductJpaRepository productJPARepository;
+public class OrderServiceImpl implements OrderService {
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
     private final StockRepository stockRepository;
 
     @Transactional
     @Override
     public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
         List<String> productNumbers = request.productNumbers();
-        Products products = new Products(productJPARepository.findAllByProductNumberIn(productNumbers));
+        Products products = new Products(productRepository.findAllByProductNumberIn(productNumbers));
 
         List<String> stockProductNumbers = products.containProductNumberType();
 
@@ -57,10 +58,10 @@ public class OrderServiceImpl implements OrderService{
             stock.reduceQuantity(quantity);
         }
 
-        List<ProductEntity> duplicateProducts = products.productsWithDuplicates(productNumbers);
+        List<Product> duplicateProducts = products.productsWithDuplicates(productNumbers);
 
-        OrderEntity newOrder = new OrderEntity(duplicateProducts, registeredDateTime);
-        OrderEntity savedOrder = orderJpaRepository.save(newOrder);
+        Order newOrder = new Order(duplicateProducts, registeredDateTime);
+        Order savedOrder = orderRepository.save(newOrder);
 
         return new OrderResponse(savedOrder, duplicateProducts);
     }

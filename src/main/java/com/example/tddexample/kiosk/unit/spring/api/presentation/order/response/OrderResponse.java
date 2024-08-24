@@ -2,8 +2,8 @@ package com.example.tddexample.kiosk.unit.spring.api.presentation.order.response
 
 
 import com.example.tddexample.kiosk.unit.spring.api.presentation.product.response.ProductResponse;
-import com.example.tddexample.kiosk.unit.spring.domain.order.OrderEntity;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.domain.order.Order;
+import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ public class OrderResponse {
     private final LocalDateTime registeredDateTime;
     private final List<ProductResponse> products;
 
-    public OrderResponse (OrderEntity order, List<ProductEntity> products) {
+    public OrderResponse(Order order, List<Product> products) {
         this(
                 order.getId(),
                 order.getTotalPrice(),
@@ -28,10 +28,12 @@ public class OrderResponse {
         );
     }
 
-    public OrderResponse(Long id,
-                         int totalPrice,
-                         LocalDateTime registeredDateTime,
-                         List<ProductResponse> products) {
+    public OrderResponse(
+            Long id,
+            int totalPrice,
+            LocalDateTime registeredDateTime,
+            List<ProductResponse> products
+    ) {
         this.id = id;
         this.totalPrice = totalPrice;
         this.registeredDateTime = registeredDateTime;

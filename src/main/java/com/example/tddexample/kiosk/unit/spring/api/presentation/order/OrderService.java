@@ -1,4 +1,4 @@
-package com.example.tddexample.kiosk.unit.spring.api.application.order;
+package com.example.tddexample.kiosk.unit.spring.api.presentation.order;
 
 import com.example.tddexample.kiosk.unit.spring.api.application.order.dto.OrderCreateServiceRequest;
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;

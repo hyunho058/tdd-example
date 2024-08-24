@@ -1,8 +1,9 @@
-package com.example.tddexample.kiosk.unit.spring.domain.order;
+package com.example.tddexample.kiosk.unit.spring.infrastructure.product;
 
 import com.example.tddexample.kiosk.unit.spring.domain.BaseEntity;
-import com.example.tddexample.kiosk.unit.spring.domain.orderproduct.OrderProductEntity;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.domain.order.Order;
+import com.example.tddexample.kiosk.unit.spring.domain.order.OrderStatus;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.order.ProductEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -26,9 +27,6 @@ public class OrderEntity extends BaseEntity {
 
     private LocalDateTime registeredDateTime;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderProductEntity> orderProductEntity = new ArrayList<>();
-
     protected OrderEntity() {
     }
 
@@ -36,33 +34,43 @@ public class OrderEntity extends BaseEntity {
         this.orderStatus = status;
         this.totalPrice = sumTotalPrice(products);
         this.registeredDateTime = registeredDateTime;
-        this.orderProductEntity = products.stream()
-                .map(product -> new OrderProductEntity(this, product))
-                .collect(Collectors.toList());
     }
 
     public OrderEntity(List<ProductEntity> products, LocalDateTime registeredDateTime) {
         this.orderStatus = OrderStatus.INIT;
         this.totalPrice = sumTotalPrice(products);
         this.registeredDateTime = registeredDateTime;
-        this.orderProductEntity = products.stream()
-            .map(product -> new OrderProductEntity(this, product))
-            .collect(Collectors.toList());
     }
 
-    public OrderEntity(OrderStatus orderStatus,
-                       int totalPrice,
-                       LocalDateTime registeredDateTime,
-                       List<OrderProductEntity> orderProductEntity) {
+    public OrderEntity(
+            OrderStatus orderStatus,
+            int totalPrice,
+            LocalDateTime registeredDateTime
+    ) {
         this.orderStatus = orderStatus;
         this.totalPrice = totalPrice;
         this.registeredDateTime = registeredDateTime;
-        this.orderProductEntity = orderProductEntity;
     }
 
     private static int sumTotalPrice(List<ProductEntity> products) {
         return products.stream()
-            .mapToInt(ProductEntity::getPrice)
-            .sum();
+                .mapToInt(ProductEntity::getPrice)
+                .sum();
+    }
+
+    public static OrderEntity fromModel(Order order) {
+        return new OrderEntity(
+                order.getOrderStatus(),
+                order.getTotalPrice(),
+                order.getRegisteredDateTime()
+        );
+    }
+
+    public Order toModel() {
+        return Order.create(
+                orderStatus,
+                totalPrice,
+                registeredDateTime
+        );
     }
 }

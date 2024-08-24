@@ -1,8 +1,8 @@
 package com.example.tddexample.kiosk.unit.spring.domain.product;
 
+import com.example.tddexample.kiosk.unit.spring.infrastructure.order.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

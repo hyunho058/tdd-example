@@ -1,4 +1,4 @@
-package com.example.tddexample.kiosk.unit.spring.domain.history.mail;
+package com.example.tddexample.kiosk.unit.spring.infrastructure;
 
 import com.example.tddexample.kiosk.unit.spring.domain.BaseEntity;
 import jakarta.persistence.*;

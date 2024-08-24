@@ -18,5 +18,4 @@ public class ApiControllerAdvice {
                 e.getBindingResult().getAllErrors().get(0).getDefaultMessage()
         );
     }
-
 }
