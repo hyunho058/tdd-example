@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.product;
 
 import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.order.ProductEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;

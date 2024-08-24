@@ -12,10 +12,10 @@ class ProductsTest {
     @Test
     void containProductNumberType() {
         //given
-        ProductEntity product1 = createProduct("001", ProductType.BOTTLE, 4000);
-        ProductEntity product2 = createProduct("002", ProductType.BAKERY, 4500);
-        ProductEntity product3 = createProduct("003", ProductType.HANDMADE, 5000);
-        List<ProductEntity> products = List.of(product1, product2, product3);
+        Product product1 = createProduct("001", ProductType.BOTTLE, 4000);
+        Product product2 = createProduct("002", ProductType.BAKERY, 4500);
+        Product product3 = createProduct("003", ProductType.HANDMADE, 5000);
+        List<Product> products = List.of(product1, product2, product3);
 
         Products orderProducts = new Products(products);
 
@@ -26,8 +26,8 @@ class ProductsTest {
         assertThat(productNumbers).hasSize(2);
     }
 
-    private ProductEntity createProduct(String productNumber, ProductType type, int price) {
-        return new ProductEntity(
+    private Product createProduct(String productNumber, ProductType type, int price) {
+        return Product.create(
                 productNumber,
                 type,
                 ProductSellingStatus.SELLING,

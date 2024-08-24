@@ -1,7 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
 import com.example.tddexample.kiosk.unit.spring.client.mail.MailSendClient;
-import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryEntity;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.MailSendHistoryEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryJpaRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

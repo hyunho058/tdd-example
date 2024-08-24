@@ -1,8 +1,8 @@
 package com.example.tddexample.kiosk.unit.spring.domain.order;
 
+import com.example.tddexample.kiosk.unit.spring.infrastructure.product.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;

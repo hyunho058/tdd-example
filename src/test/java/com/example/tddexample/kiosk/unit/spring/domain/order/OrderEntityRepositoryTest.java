@@ -1,6 +1,7 @@
 package com.example.tddexample.kiosk.unit.spring.domain.order;
 
 import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
+import com.example.tddexample.kiosk.unit.spring.api.application.order.port.OrderRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.tuple;
 
 class OrderEntityRepositoryTest extends IntegrationTestSupport {
     @Autowired
-    private OrderJpaRepository orderJpaRepository;
+    private OrderRepository orderRepository;
 
     @DisplayName("주문 상태가 결제 완료와 선택한 날짜에 포함된 주문 목록을 가져온다.")
     @Test
@@ -22,29 +23,26 @@ class OrderEntityRepositoryTest extends IntegrationTestSupport {
         LocalDateTime startDateTime  = LocalDateTime.of(2023, 1, 20, 9, 0, 0);
         LocalDateTime endDateTime  = LocalDateTime.of(2023, 2, 20, 0, 0, 0);
         LocalDateTime selectedIncludeData = LocalDateTime.of(2023, 1, 20, 10, 0, 0);
-        OrderEntity order1 = new OrderEntity(
+        Order order1 = Order.create(
                 OrderStatus.PAYMENT_COMPLETED,
                 10000,
-                selectedIncludeData,
-                null
+                selectedIncludeData
         );
-        OrderEntity order2 = new OrderEntity(
+        Order order2 = Order.create(
                 OrderStatus.CANCELED,
                 12000,
-                LocalDateTime.of(2023, 1, 21, 10, 0, 0),
-                null
+                LocalDateTime.of(2023, 1, 21, 10, 0, 0)
         );
-        OrderEntity order3 = new OrderEntity(
+        Order order3 = Order.create(
                 OrderStatus.PAYMENT_COMPLETED,
                 15000,
-                LocalDateTime.of(2023, 2, 20, 10, 0, 0),
-                null
+                LocalDateTime.of(2023, 2, 20, 10, 0, 0)
         );
 
-        orderJpaRepository.saveAll(List.of(order1,order2, order3));
+        orderRepository.saveAll(List.of(order1,order2, order3));
 
         //when
-        List<OrderEntity> orders = orderJpaRepository.findOrdersBy(
+        List<Order> orders = orderRepository.findOrdersBy(
                 startDateTime,
                 endDateTime,
                 OrderStatus.PAYMENT_COMPLETED

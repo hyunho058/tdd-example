@@ -1,6 +1,6 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
-import com.example.tddexample.kiosk.unit.spring.domain.order.OrderEntity;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.product.OrderEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderStatus;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,8 @@ public class OrderStatisticsServiceImpl implements OrderStatisticsService{
                 "no-replay@cafekiosk.com",
                 mail,
                 String.format("[총 매출] %s", orderDate),
-                String.format("내용 총 매출 합계 = %s", ordersTotalPrice));
+                String.format("내용 총 매출 합계 = %s", ordersTotalPrice)
+        );
 
         if (!result) {
             throw new IllegalArgumentException("매출 총계 메일 전송애 실패했습니다.");
@@ -42,4 +43,16 @@ public class OrderStatisticsServiceImpl implements OrderStatisticsService{
 
         return true;
     }
+
+
+    //언제 .. 금요일은 뭔가 공간이... 수요일 저녁 3시~5시
+    public void 후기_등록() {
+        //1.후기 등록 - DB(우리 디비)
+
+        //2 결제
+
+        //3.문자 발송
+    }
+
+    //보상 트렌젝션 SAGA
 }

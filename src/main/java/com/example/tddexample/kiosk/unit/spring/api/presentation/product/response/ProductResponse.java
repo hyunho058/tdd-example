@@ -1,6 +1,6 @@
 package com.example.tddexample.kiosk.unit.spring.api.presentation.product.response;
 
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.domain.product.Product;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
 import lombok.Getter;
@@ -14,7 +14,7 @@ public class ProductResponse {
     private final String name;
     private final int price;
 
-    public ProductResponse(ProductEntity product) {
+    public ProductResponse(Product product) {
         this(
             product.getId(),
             product.getProductNumber(),

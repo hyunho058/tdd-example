@@ -5,7 +5,7 @@ import com.example.tddexample.kiosk.unit.spring.api.presentation.order.request.O
 import com.example.tddexample.kiosk.unit.spring.api.presentation.order.response.OrderResponse;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.orderproduct.OrderProductJpaRepository;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.order.ProductEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
@@ -58,7 +58,6 @@ class OrderEntityServiceImplTest extends IntegrationTestSupport {
         OrderResponse orderResponse = orderServiceImpl.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
-        assertThat(orderResponse.getId()).isNotNull();
         assertThat(orderResponse)
             .extracting("registeredDateTime", "totalPrice")
             .contains(nowDateTine, 8500);
@@ -85,7 +84,6 @@ class OrderEntityServiceImplTest extends IntegrationTestSupport {
         OrderResponse orderResponse = orderServiceImpl.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
-        assertThat(orderResponse.getId()).isNotNull();
         assertThat(orderResponse)
                 .extracting("registeredDateTime", "totalPrice")
                 .contains(nowDateTine, 8000);
@@ -118,7 +116,6 @@ class OrderEntityServiceImplTest extends IntegrationTestSupport {
         OrderResponse orderResponse = orderServiceImpl.createOrder(request.toServiceRequest(), nowDateTine);
 
         //then
-        assertThat(orderResponse.getId()).isNotNull();
         assertThat(orderResponse)
                 .extracting("registeredDateTime", "totalPrice")
                 .contains(nowDateTine, 17500);

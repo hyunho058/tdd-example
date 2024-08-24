@@ -1,12 +1,12 @@
 package com.example.tddexample.kiosk.unit.spring.api.application.order;
 
 import com.example.tddexample.kiosk.unit.spring.IntegrationTestSupport;
-import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryEntity;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.MailSendHistoryEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.history.mail.MailSendHistoryJpaRepository;
-import com.example.tddexample.kiosk.unit.spring.domain.order.OrderEntity;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.product.OrderEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.order.OrderStatus;
-import com.example.tddexample.kiosk.unit.spring.domain.product.ProductEntity;
+import com.example.tddexample.kiosk.unit.spring.infrastructure.order.ProductEntity;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductJpaRepository;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductSellingStatus;
 import com.example.tddexample.kiosk.unit.spring.domain.product.ProductType;
